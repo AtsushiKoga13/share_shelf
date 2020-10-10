@@ -2,6 +2,9 @@
   <div id="app">
     <p>{{ user_info.name }}</p>
     <p>{{ user_info.email }}</p>
+    <router-link to="/page1">ページ１へ</router-link>
+    <router-link to="/page2">ページ２へ</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
