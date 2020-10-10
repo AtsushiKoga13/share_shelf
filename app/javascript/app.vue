@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <p>{{ message }}</p>
-    <p>{{ $store.state.message_2 }}</p>
-    <p>{{ user_info }}</p>
+    <p>{{ user_info.name }}</p>
+    <p>{{ user_info.email }}</p>
   </div>
 </template>
 
@@ -12,13 +11,12 @@ import axios from 'axios';
 export default {
   data: function () {
     return {
-      message: "Hello Vue!",
       user_info: []
     }
   },
   mounted () {
     axios
-      .get('/users/index')
+      .get('/users/1')
       .then(response => (this.user_info = response.data))
   }
 }

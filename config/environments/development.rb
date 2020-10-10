@@ -61,4 +61,6 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.hosts << "rocky-inlet-42699.herokuapp.com"
+
+  config.reload_classes_only_on_change = false
 end
