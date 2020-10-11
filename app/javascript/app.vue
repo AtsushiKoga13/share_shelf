@@ -2,6 +2,7 @@
   <div id="app">
     <p>{{ user_info.name }}</p>
     <p>{{ user_info.email }}</p>
+    <p>{{ $store.state.message_2 }}</p>
     <Header></Header>
   </div>
 </template>
