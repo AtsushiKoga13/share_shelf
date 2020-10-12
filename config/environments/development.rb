@@ -63,4 +63,6 @@ Rails.application.configure do
   config.hosts << "rocky-inlet-42699.herokuapp.com"
 
   config.reload_classes_only_on_change = false
+
+  config.web_console.whitelisted_ips ='172.20.0.1'
 end

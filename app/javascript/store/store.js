@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    message_2: 'vuex active'
+    message_2: 'vuex active',
+    session_id: 1
   }
 })
