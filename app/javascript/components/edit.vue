@@ -32,7 +32,7 @@ export default {
   methods: {
     exec: function () {
       axios
-      .patch('/users/1',{
+      .patch('/users/:id',{
         name : this.name,
         email : this.email
       })
