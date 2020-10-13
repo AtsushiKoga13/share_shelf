@@ -1,14 +1,13 @@
 <template>
   <div>
     <p>Home</p>
-    <p>{{ user_information.name }}</p>
-    <p>{{ user_information.email }}</p>
-    <p>{{ $store.state.message_2 }}</p>
+    {{ $store.state.user_info }}
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import store from 'store/store.js'
 
 export default {
   data: function () {
@@ -19,7 +18,7 @@ export default {
   mounted () {
     axios
       .get('/users/1')
-      .then(response => (this.user_information = response.data))
+      .then(response => (store.state.user_info = response.data))
   }
 }
 </script>

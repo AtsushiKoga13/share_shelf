@@ -16,6 +16,7 @@
 
 <script>
 import axios from 'axios';
+import store from '../store/store'
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -24,8 +25,8 @@ export default {
   name: 'HelloWorld',
   data: function () {
     return {
-      name: "",
-      email: ""
+      name: store.state.user_info.name ,
+      email: store.state.user_info.email
     }
   },
   methods: {
