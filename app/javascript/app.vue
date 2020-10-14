@@ -1,7 +1,10 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <Header></Header>
-  </div>
+    <v-container class="mt-16">
+      <router-view></router-view>
+    </v-container>
+  </v-app>
 </template>
 
 <script>

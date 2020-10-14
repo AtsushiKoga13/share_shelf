@@ -9,9 +9,16 @@ import Vue from 'vue'
 import App from '../app.vue'
 import router from "../routes/router.js";
 import store from '../store/store'
+import "vuetify/dist/vuetify.min.css";
+import Vuetify from 'vuetify'
+
+Vue.use(Vuetify)
+
+const vuetify = new Vuetify();
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
+    vuetify,
     router,
     store,
     render: h => h(App)
