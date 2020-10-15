@@ -5,77 +5,70 @@ RSpec.describe User, type: :model do
   let(:email) { "test@test.test" }
   let(:password) { "password" }
 
+  subject { test_user = User.create(
+            name: name,
+            email: email,
+            password: password,
+            password_confirmation: password
+            ) }
+
   context "when value is appropriate" do
-    it "can create" do
-      test_user = User.create(
-        name: name,
-        email: email,
-        password: password,
-        password_confirmation: password
-        )
-      expect(test_user).to be_valid
-    end
+    it { is_expected.to be_valid }
   end
 
   context "when name is blank" do
     let(:name) { "" }
 
-    it "can not create" do
-      test_user = User.create(
-        name: name,
-        email: email,
-        password: password,
-        password_confirmation: password
-        )
-      expect(test_user).not_to be_valid
-    end
+    it { is_expected.not_to be_valid }
+  end
+
+  context "when name is too long" do
+    let(:name) { "a" * 51 }
+
+    it { is_expected.not_to be_valid }
   end
 
   context "when email is blank" do
     let(:email) { "" }
 
-    it "can not create" do
-      test_user = User.create(
-        name: name,
-        email: email,
-        password: password,
-        password_confirmation: password
-        )
-      expect(test_user).not_to be_valid
-    end
+    it { is_expected.not_to be_valid }
+  end
+
+  context "when email is too long" do
+    let(:email) { "a" * 255 + "@a.a" }
+
+    it { is_expected.not_to be_valid }
+  end
+
+  context "when email format is invalid" do
+    let(:email) { "テスト@テスト.テスト" }
+
+    it { is_expected.not_to be_valid }
   end
 
   context "when email is duplicate" do
-    let(:upcase_email) { "TEST@TEST.TEST" }
+    let(:email) { "TEST@TEST.TEST" }
 
     it "can not create" do
-      test_user = User.create(
+      other_user = User.create(
         name: name,
-        email: email,
+        email: "test@test.test",
         password: password,
         password_confirmation: password
         )
-      other_user = User.new(
-        name: name,
-        email: upcase_email,
-        password: password,
-        password_confirmation: password
-        )
-      expect(other_user).not_to be_valid
+      is_expected.not_to be_valid
     end
   end
 
   context "when password is blank" do
     let(:password) { "" }
 
-    it "can not create" do
-      test_user = User.create(
-        name: name,
-        email: email,
-        password: password,
-        password_confirmation: password
-        )
-      expect(test_user).not_to be_valid
-    end
+    it { is_expected.not_to be_valid }
+  end
+
+  context "when password is too short" do
+    let(:password) { "pass" }
+
+    it { is_expected.not_to be_valid }
   end
 end

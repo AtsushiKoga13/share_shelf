@@ -88,4 +88,26 @@ RSpec.configure do |config|
     Capybara.server_port = 3000
     Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
   end
+
+  config.include FactoryBot::Syntax::Methods
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+  config.before(:all) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:all) do
+    DatabaseCleaner.clean
+  end
 end
