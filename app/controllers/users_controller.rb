@@ -26,13 +26,15 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    user = User.find(params[:id])
-    user.update(user_params)
-    render body: nil
+    user = User.find(session[:user_id])
+    if user.update(user_params)
+      render plain: "true"
+    else
+      render plain: user.errors.full_messages
+    end
   end
 
   private

@@ -1,16 +1,19 @@
 <template>
   <form @submit.prevent="exec">
-    <div class="form_item">
-      <label for="user_name">Name</label>
-      <input class="text_form" type="text" v-model="name">
-    </div>
-    <div class="form_item">
-      <label for="user_email">Email</label>
-      <input class="text_form" type="email" v-model="email">
-    </div>
-    <div class="form_item">
-      <input type="submit" value="Save changes" >
-    </div>
+    <v-col cols="12" sm="6" md="3">
+      <v-text-field label="Name" type="text" v-model="name"></v-text-field>
+    </v-col>
+    <v-col cols="12" sm="6" md="3">
+      <v-text-field label="Email" type="email" v-model="email"></v-text-field>
+    </v-col>
+    <v-col cols="12" sm="6" md="3">
+      <v-text-field label="Password" type="password" v-model="password"></v-text-field>
+    </v-col>
+    <v-col cols="12" sm="6" md="3">
+      <v-text-field label="PasswordConfirmation" type="password" v-model="password_confirmation"></v-text-field>
+    </v-col>
+    <v-btn type="submit" value="Save changes" elevation="2">Save changes</v-btn>
+     {{ info }}
   </form>
 </template>
 
@@ -26,27 +29,26 @@ export default {
   data: function () {
     return {
       name: store.state.user_info.name ,
-      email: store.state.user_info.email
+      email: store.state.user_info.email,
+      password: "",
+      password_confirmation: "",
+      info: ""
     }
   },
   methods: {
     exec: function () {
       axios
-      .patch('/users/:id',{
-        name : this.name,
-        email : this.email
+      .patch('/users/' + store.state.user_info.id,{
+        user:{ name : this.name,
+              email : this.email,
+              password : this.password,
+              password_confirmation : this.password_confirmation }
       })
-      .then(function (response) {
-        // handle success
-        console.log(response);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .finally(function () {
-        // always executed
-      })
+      .then(response => (this.info = response.data))
+    }
+  },
+  updated: function() {
+    if (this.info == true) {
       this.$router.push({ name: "home" });
     }
   }

@@ -10,14 +10,9 @@ import axios from 'axios';
 import store from 'store/store.js'
 
 export default {
-  data: function () {
-    return {
-      user_information: []
-    }
-  },
   mounted () {
     axios
-      .get('/users/1')
+      .get('/users/:id' )
       .then(response => (store.state.user_info = response.data))
   }
 }
