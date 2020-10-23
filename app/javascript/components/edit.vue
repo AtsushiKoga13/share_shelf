@@ -28,8 +28,8 @@ export default {
   name: 'HelloWorld',
   data: function () {
     return {
-      name: store.state.user_info.name ,
-      email: store.state.user_info.email,
+      name: store.state.user_info[0].name ,
+      email: store.state.user_info[0].email,
       password: "",
       password_confirmation: "",
       info: ""

@@ -1,7 +1,8 @@
 <template>
   <div>
-    <p>Home</p>
-    {{ $store.state.user_info }}
+    <p>Homee</p>
+    <div>{{ $store.state.user_info[0] }}</div>
+    <img :src="$store.state.user_info[1]">
   </div>
 </template>
 

@@ -7,8 +7,13 @@ class UsersController < ApplicationController
   end
 
   def show
+    user_info = []
     user = User.find(session[:user_id])
-    render json: user
+    user_info << user
+    if user.image.attached?
+      user_info << encode_base64(user.image)
+    end
+    render json: user_info
   end
 
   def new
@@ -17,6 +22,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.image.attach(params[:user][:image])
     if @user.save
       log_in @user
       redirect_to root_url
@@ -40,6 +46,13 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :image)
   end
+
+  def encode_base64(image_file)
+    image = Base64.encode64(image_file.download)
+    blob = ActiveStorage::Blob.find(image_file.blob_id)
+    "data:#{blob[:content_type]};base64,#{image}"
+  end
+
 end
