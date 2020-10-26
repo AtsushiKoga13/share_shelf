@@ -10,9 +10,7 @@ class UsersController < ApplicationController
     user_info = []
     user = User.find(session[:user_id])
     user_info << user
-    if user.image.attached?
-      user_info << encode_base64(user.image)
-    end
+    user_info << encode_base64(user.image) if user.image.attached?
     render json: user_info
   end
 
@@ -32,6 +30,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(session[:user_id])
   end
 
   def update
@@ -46,7 +45,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :image)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation,:image, :prof_image)
   end
 
   def encode_base64(image_file)
@@ -54,5 +53,4 @@ class UsersController < ApplicationController
     blob = ActiveStorage::Blob.find(image_file.blob_id)
     "data:#{blob[:content_type]};base64,#{image}"
   end
-
 end

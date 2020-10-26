@@ -1,0 +1,41 @@
+<div class="container sumaho_mt65">
+  <h1>Update your profile</h1>
+  <div class="account-info">
+    <p><%= @user.name %></p>
+    <p><%= @user.email %></p>
+    <p>
+      <% if @user.image.attached? %>
+      <%= image_tag @user.image , class: "account-image" %>
+      <% end %>
+    </p>
+  </div>
+  <div class="edit_container">
+    <%= form_with(model: @user, local: true) do |f| %>
+      <div class="form_item">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'text_form' %>
+      </div>
+      <div class="form_item">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'text_form' %>
+      </div>
+      <div class="form_item">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'text_form' %>
+      </div>
+      <div class="form_item">
+        <%= f.label :password_confirmation, "Confirmation" %>
+        <%= f.password_field :password_confirmation, class: 'text_form' %>
+      </div>
+        <div class="form_item">
+        <%= f.label :画像を変更 %>
+          <span class="image">
+            <%= f.file_field :image %>
+          </span>
+        </div>
+      <div class="form_item">
+        <%= f.submit "Save changes", class: "submit_btn" %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Homee</p>
+    <p>Home</p>
     <div>{{ $store.state.user_info[0] }}</div>
     <img :src="$store.state.user_info[1]">
   </div>

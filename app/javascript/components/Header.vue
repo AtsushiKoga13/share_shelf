@@ -6,7 +6,6 @@
         <v-toolbar-title>Share Shelf</v-toolbar-title>
         <v-tabs right>
           <v-tab to="/" class="header_link">home</v-tab>
-          <v-tab to="/edit" class="header_link">edit</v-tab>
           <v-tab to="/page2" class="header_link">notification</v-tab>
           <v-tab rel="nofollow" data-method="delete" to="/logout" class="header_link">Log out</v-tab>
         </v-tabs>
