@@ -37,7 +37,6 @@ class UsersController < ApplicationController
     user = User.find(session[:user_id])
     if user.update(user_params)
       redirect_to "/edit"
-      # render plain: "true"
     else
       render plain: user.errors.full_messages
     end

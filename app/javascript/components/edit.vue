@@ -50,11 +50,6 @@ export default {
       .then(response => (this.info = response.data))
       this.$router.push({ path: '/' })
     }
-  },
-  updated: function() {
-    if (this.response == true) {
-      this.$router.push({ name: "home" });
-    }
   }
 }
 </script>
