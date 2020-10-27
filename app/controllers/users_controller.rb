@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @user.image.attach(params[:user][:image])
     if @user.save
       log_in @user
-      redirect_to root_url
+      redirect_to user_edit_path
     else
       render 'new'
     end
@@ -36,7 +36,8 @@ class UsersController < ApplicationController
   def update
     user = User.find(session[:user_id])
     if user.update(user_params)
-      render plain: "true"
+      redirect_to "/edit"
+      # render plain: "true"
     else
       render plain: user.errors.full_messages
     end
@@ -45,7 +46,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation,:image, :prof_image)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation,:image)
   end
 
   def encode_base64(image_file)

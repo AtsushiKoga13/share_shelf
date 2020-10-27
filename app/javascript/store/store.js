@@ -6,6 +6,6 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     message_2: 'vuex active',
-    user_info: [],
+    user_info: [{name:""}],
   }
 })
