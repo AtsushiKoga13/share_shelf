@@ -5,24 +5,23 @@
     <p><%= @user.email %></p>
     <p>
       <% if @user.image.attached? %>
-      <%= image_tag @user.image , class: "account-image", id: "preview", style: "width:200px; height:200px;" %>
+      <%= image_tag @user.image, class: "account-image", id: "preview", style: "max-width:200px; max-height:200px;" %>
       <% end %>
     </p>
   </div>
   <div class="edit_container">
     <%= form_with(model: @user, local: true) do |f| %>
-        <div class="form_item">
-        <%= f.label :画像を変更 %>
-          <span class="image">
-            <%= f.file_field :image %>
-          </span>
-        </div>
-        <div class="form_item">
-        <%= f.submit "Save changes", class: "submit_btn" %>
+      <div class="form_item">
+      <%= f.label :画像を変更 %>
+        <span class="image">
+          <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png" %>
+        </span>
+      </div>
+      <div class="form_item">
+      <%= f.submit "Save changes", class: "submit_btn", id: "submit_button" %>
       </div>
     <% end %>
   </div>
-  <div id="result"></div>
 </div>
 
 <%= javascript_pack_tag 'edit_page' %>

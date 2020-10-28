@@ -3,13 +3,16 @@ window.addEventListener('popstate', function(e) {
 });
 
 document.getElementById('user_image').addEventListener('change', function() {
-  console.log('Hello world!')
   var uploadFile = document.getElementById("user_image").files[0];
-  var fileSize = uploadFile.size/1024/1024
+  var fileSize = uploadFile.size/1024/1024;
+  const button = document.getElementById("submit_button");
+
   if (fileSize > 5) {
     alert("Maximum file size is 5MB. Please choose a smaller file.");
+    button.disabled = true
+  } else {
+    button.disabled = false
   }
-  document.getElementById("result").innerHTML = fileSize;
 
   var fileReader = new FileReader();
   fileReader.onload = (function() {

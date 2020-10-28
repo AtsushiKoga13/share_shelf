@@ -23,9 +23,9 @@ class UsersController < ApplicationController
     @user.image.attach(params[:user][:image])
     if @user.save
       log_in @user
-      redirect_to user_edit_path
+      redirect_to root_path
     else
-      render 'new'
+      render :new
     end
   end
 
@@ -34,11 +34,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(session[:user_id])
-    if user.update(user_params)
+    @user = User.find(session[:user_id])
+    if @user.update(user_params)
       redirect_to "/edit"
-    else
-      render plain: user.errors.full_messages
     end
   end
 
