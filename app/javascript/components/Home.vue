@@ -11,7 +11,7 @@ import axios from 'axios';
 import store from 'store/store.js'
 
 export default {
-  mounted () {
+  beforeMount () {
     axios
       .get('/users/:id' )
       .then(response => (store.state.user_info = response.data))
