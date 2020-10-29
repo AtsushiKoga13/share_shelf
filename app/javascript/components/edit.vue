@@ -47,7 +47,6 @@ export default {
               password : this.password,
               password_confirmation : this.password_confirmation }
       })
-      .then(response => (this.info = response.data))
       this.$router.push({ path: '/' })
     }
   }
