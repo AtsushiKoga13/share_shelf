@@ -1,8 +1,8 @@
 <template>
   <div>
     <p>User</p>
-    <div>{{ $store.state.user_info[0] }}</div>
-    <img :src="$store.state.user_info[1]">
+    <div>{{ user_info[0] }}</div>
+    <img :src="user_info[1]">
   </div>
 </template>
 
@@ -11,15 +11,15 @@ import axios from 'axios';
 import store from 'store/store.js'
 
 export default {
-  beforeCreate: function() {
-    axios
-      .get('/users/:id' )
-      .then(response => (store.state.user_info = response.data))
+  data: function () {
+    return {
+      user_info: [{name:""}]
+    }
   },
   mounted: function() {
     axios
       .get('/users/:id' )
-      .then(response => (store.state.user_info = response.data))
+      .then(response => (this.user_info = response.data))
   }
 }
 </script>
