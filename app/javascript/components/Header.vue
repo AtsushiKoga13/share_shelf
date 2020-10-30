@@ -7,7 +7,6 @@
         <v-tabs right>
           <v-tab to="/" class="header_link" replace>Home</v-tab>
           <v-tab to="/user_page" class="header_link" replace>User</v-tab>
-          <v-tab to="/edit" class="header_link" replace>edit</v-tab>
           <v-tab to="/page2" class="header_link" replace>notification</v-tab>
           <v-tab rel="nofollow" data-method="delete" to="/logout" class="header_link">Log out</v-tab>
         </v-tabs>

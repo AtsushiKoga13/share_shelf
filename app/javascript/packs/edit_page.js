@@ -1,5 +1,5 @@
 window.addEventListener('popstate', function(e) {
-  location.href="/edit";
+  location.href="/user_page";
 });
 
 document.getElementById('user_image').addEventListener('change', function() {

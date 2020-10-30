@@ -1,8 +1,9 @@
 <template>
   <div>
     <p>User</p>
-    <div>{{ user_info[0] }}</div>
-    <img :src="user_info[1]">
+    <div>{{ $store.state.user_info[0] }}</div>
+    <img :src="$store.state.user_info[1]">
+    <a href="/users/profile/edit">プロフィールを変更する</a>
   </div>
 </template>
 
@@ -11,15 +12,10 @@ import axios from 'axios';
 import store from 'store/store.js'
 
 export default {
-  data: function () {
-    return {
-      user_info: [{name:""}]
-    }
-  },
   mounted: function() {
     axios
       .get('/users/:id' )
-      .then(response => (this.user_info = response.data))
+      .then(response => (store.state.user_info = response.data))
   }
 }
 </script>
