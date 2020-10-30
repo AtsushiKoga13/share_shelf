@@ -47,7 +47,9 @@ export default {
               password : this.password,
               password_confirmation : this.password_confirmation }
       })
-      this.$router.push({ path: '/' })
+      this.$nextTick(() => {
+	      this.$router.push({ path: '/user_page' })
+      })
     }
   }
 }

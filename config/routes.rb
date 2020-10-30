@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   root to: 'home#index'
   get '/edit',  to: 'home#index'
+  get '/user_page',  to: 'home#index'
   resources :users
 end
