@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to "/user_page"
     else
-      render "users/profile/edit"
+      render :edit
     end
   end
 

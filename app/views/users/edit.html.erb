@@ -2,6 +2,7 @@
   <h1>Update your profile picture</h1>
   <div class="edit_container">
     <%= form_with(model: @user, local: true) do |f| %>
+      <%= render 'shared/error_messages' %>
       <div class="form_item">
         <%= f.label :name %>
         <%= f.text_field :name, class: 'text_form' %>
