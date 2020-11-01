@@ -107,6 +107,7 @@ GEM
     jaro_winkler (1.5.4)
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
+    json (2.3.1)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -171,6 +172,8 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rainbow (3.0.0)
     rake (13.0.1)
+    rakuten_web_service (1.13.0)
+      json (~> 2.3)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -292,6 +295,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
   rails (~> 6.0.3)
+  rakuten_web_service
   rspec-rails
   rubocop-airbnb
   sass-rails (>= 6)
