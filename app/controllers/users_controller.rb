@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     user = User.find(session[:user_id])
     user_info << user
     user_info << encode_base64(user.image) if user.image.attached?
+    user_info << user.image.filename if user.image.attached?
     render json: user_info
   end
 

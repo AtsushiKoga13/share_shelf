@@ -17,6 +17,7 @@ document.getElementById('user_image').addEventListener('change', function() {
   var fileReader = new FileReader();
   fileReader.onload = (function() {
     document.getElementById('preview').src = fileReader.result;
+    document.getElementById('preview').alt = uploadFile.name;
   });
   fileReader.readAsDataURL(uploadFile);
 });
