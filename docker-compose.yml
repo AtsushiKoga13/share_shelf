@@ -25,3 +25,4 @@ services:
     tty: true
   selenium_chrome:
     image: selenium/standalone-chrome-debug
+    shm_size: 256m

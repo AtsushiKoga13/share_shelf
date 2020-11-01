@@ -48,4 +48,16 @@ RSpec.describe 'Users edit', type: :system, js: true do
       expect(page).to have_selector("img[alt$='test_image_1.jpg']")
     end
   end
+
+  context "when large image file is uploaded" do
+    it "can not edit profile image" do
+      visit edit_user_path(1)
+      image_path = File.join(Rails.root, "spec/factories/images/large_size_image.png")
+      page.accept_alert "Maximum file size is 5MB. Please choose a smaller file." do
+        attach_file "user[image]", image_path
+      end
+      expect(page).to have_content "Update your profile picture"
+      expect(find('#submit_button')).to be_disabled
+    end
+  end
 end
