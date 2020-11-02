@@ -11,7 +11,7 @@
     </div>
     <div>
       <ul id="example-1">
-        <li v-for="item in result" :key="item.params">
+        <li v-for="item in result" :key="item.params.title">
           <p>{{ item.params.title }}</p>
           <img :src="item.params.mediumImageUrl">
           <p>保存</p>
