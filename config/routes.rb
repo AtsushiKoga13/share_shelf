@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   get '/user_page',  to: 'home#index'
   get '/search', to: "api/rakuten#search"
   resources :users
+  resources :books, only: [:show]
 end

@@ -1,10 +1,15 @@
 <template>
   <div>
-    <p>User</p>
+    <p>Users</p>
     <div>{{ userinfo }}</div>
     <img v-bind:src="user_image" v-bind:alt="user_image_name">
     <a v-bind:href="'/users/' + user_id + '/edit'">プロフィール画像を変更する</a>
     <p>{{ user_image_name }}</p>
+    <ul id="example-1">
+      <li v-for="book in books" :key="book.title">
+        <p>{{ book.title }}</p>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -25,12 +30,18 @@ export default {
     },
     user_image_name () {
       return this.$store.state.user_info[2]
+    },
+    books () {
+      return this.$store.state.books
     }
   },
   mounted: function() {
     axios
       .get('/users/:id' )
       .then(response => (store.state.user_info = response.data))
+    axios
+      .get('/books/' + this.user_id )
+      .then(response => (store.state.books = response.data))
   }
 }
 </script>

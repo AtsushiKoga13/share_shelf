@@ -7,5 +7,6 @@ export default new Vuex.Store({
   state: {
     message_2: 'vuex active',
     user_info: [{name:""}],
+    books: [{title:""}],
   }
 })
