@@ -10,11 +10,12 @@
       </form>
     </div>
     <div>
+      <p>{{ choose }}</p>
       <ul id="example-1">
-        <li v-for="item in result" :key="item.params.title">
+        <li v-for="(item, index) in result" :key="item.params.title">
           <p>{{ item.params.title }}</p>
           <img :src="item.params.mediumImageUrl">
-          <p>保存</p>
+          <button type='submit' @click="sendindex(index)">保存</button>
         </li>
       </ul>
     </div>
@@ -32,7 +33,8 @@ export default {
   data () {
     return {
       result: "",
-      keyword: ""
+      keyword: "",
+      choose: ""
     }
   },
   methods: {
@@ -44,6 +46,17 @@ export default {
         }
       })
       .then(response => (this.result = response.data))
+    },
+    sendindex(index) {
+      var book_info = this.result[index];
+      var book_title = book_info.params.title
+      this.choose = book_title
+      axios
+      .post('/books', {
+        book: {
+          title: book_title
+        }
+      })
     }
   }
 }

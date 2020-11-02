@@ -5,9 +5,14 @@ class BooksController < ApplicationController
     render json: books
   end
 
+  def create
+    user = User.find(session[:user_id])
+    user.books.create(book_params)
+  end
+
   private
 
   def book_params
-    params.require(:book).permit(:id)
+    params.require(:book).permit(:id, :title)
   end
 end
