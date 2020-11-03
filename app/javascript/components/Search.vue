@@ -50,11 +50,13 @@ export default {
     sendindex(index) {
       var book_info = this.result[index];
       var book_title = book_info.params.title
+      var book_image = book_info.params.mediumImageUrl
       this.choose = book_title
       axios
       .post('/books', {
         book: {
-          title: book_title
+          title: book_title,
+          image: book_image
         }
       })
     }

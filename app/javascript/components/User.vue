@@ -8,6 +8,7 @@
     <ul id="example-1">
       <li v-for="book in books" :key="book.title">
         <p>{{ book.title }}</p>
+        <img :src="book.image">
       </li>
     </ul>
   </div>
