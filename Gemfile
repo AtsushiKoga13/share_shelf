@@ -60,6 +60,7 @@ group :test do
   # gem 'webdrivers'
   gem 'factory_bot_rails'
   gem 'database_cleaner'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

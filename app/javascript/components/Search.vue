@@ -14,7 +14,7 @@
       <ul id="example-1">
         <li v-for="(item, index) in result" :key="item.params.title">
           <p>{{ item.params.title }}</p>
-          <img :src="item.params.mediumImageUrl">
+          <img :src="item.params.mediumImageUrl" v-bind:alt="item.params.titleKana">
           <button type='submit' @click="sendindex(index)">保存</button>
         </li>
       </ul>
