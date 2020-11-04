@@ -15,7 +15,9 @@
         <li v-for="(item, index) in result" :key="item.params.title">
           <p>{{ item.params.title }}</p>
           <img :src="item.params.mediumImageUrl" v-bind:alt="item.params.titleKana">
-          <button type='submit' @click="sendindex(index)">保存</button>
+          <button type='submit' @click="sendindex(index,1)">保存1</button>
+          <button type='submit' @click="sendindex(index,2)">保存2</button>
+          <button type='submit' @click="sendindex(index,3)">保存3</button>
         </li>
       </ul>
     </div>
@@ -47,7 +49,7 @@ export default {
       })
       .then(response => (this.result = response.data))
     },
-    sendindex(index) {
+    sendindex(index,tag_id) {
       var book_info = this.result[index];
       var book_title = book_info.params.title
       var book_image = book_info.params.mediumImageUrl
@@ -56,7 +58,8 @@ export default {
       .post('/books', {
         book: {
           title: book_title,
-          image: book_image
+          image: book_image,
+          tag_id: tag_id
         }
       })
     }
