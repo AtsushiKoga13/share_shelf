@@ -11,7 +11,7 @@
         <a @click="DisplayBook(index)"><img :src="book.image"></a>
       </li>
     </ul>
-    <div v-show="show" class="modal">
+    <div v-if="show" class="modal">
       <p>{{ BookInfo.title }}</p>
       <p><img :src="BookInfo.image"></p>
       <button @click="close">閉じる</button>

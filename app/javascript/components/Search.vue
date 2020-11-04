@@ -6,7 +6,7 @@
         <input name="utf8" type="hidden" value="✓">
         <label for="keyword">検索</label>
         <input v-model="keyword" type="text" name="keyword" id="keyword" placeholder="書籍・DVD・CD名等">
-        <input type="submit" class="fas submit_btn">
+        <input type="submit" class="fas submit_btn" value="find">
       </form>
     </div>
     <div>
