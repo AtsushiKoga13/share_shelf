@@ -10,6 +10,11 @@ class BooksController < ApplicationController
     user.books.create(book_params)
   end
 
+  def destroy
+    book = Book.find(params[:id])
+    book.destroy
+  end
+
   private
 
   def book_params

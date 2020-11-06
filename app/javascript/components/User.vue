@@ -10,9 +10,10 @@
     <button @click="change_tag_id = 2">change2</button>
     <button @click="change_tag_id = 3">change3</button>
     <ul id="example-1">
-      <li v-for="(book) in books(change_tag_id)" :key="book.title">
+      <li v-for="book in books(change_tag_id)" :key="book.title">
         <p>{{ book.title }}</p>
         <a @click="DisplayBook(book)"><img :src="book.image"></a>
+        <button @click="DeleteBook(book.id)">削除</button>
       </li>
     </ul>
     <div v-if="show" class="modal">
@@ -69,25 +70,20 @@ export default {
       .then(response => (store.state.books = response.data))
   },
   methods: {
-    index(index) {
-      var book_info = this.result[index];
-      var book_title = book_info.params.title
-      var book_image = book_info.params.mediumImageUrl
-      this.choose = book_title
-      axios
-      .post('/books', {
-        book: {
-          title: book_title,
-          image: book_image
-        }
-      })
-    },
     DisplayBook(book) {
       this.show = true
       this.BookInfo = book
     },
     close () {
       this.show = false
+    },
+    DeleteBook(book_id) {
+      // store.state.books.splice(book_id, 1)
+      axios
+        .delete('/books/' + book_id)
+      axios
+        .get('/books/' + this.user_id )
+        .then(response => (store.state.books = response.data))
     }
   }
 }

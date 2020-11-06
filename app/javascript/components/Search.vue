@@ -14,7 +14,7 @@
         <li v-for="(item, index) in result" :key="item.params.title">
           <p>{{ item.params.title }}</p>
           <img :src="item.params.mediumImageUrl" v-bind:alt="item.params.titleKana">
-          <BookInfo :index="index" :result="result" v-if="CheckShelf(item.params)"/>
+          <BookSaveButton :index="index" :result="result" v-if="CheckShelf(item.params)"/>
         </li>
       </ul>
     </div>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import BookInfo from './BookSaveButton';
+import BookSaveButton from './BookSaveButton';
 import axios from 'axios';
 import store from 'store/store.js'
 axios.defaults.headers.common = {
@@ -32,7 +32,7 @@ axios.defaults.headers.common = {
 
 export default {
   components: {
-    BookInfo,
+    BookSaveButton,
   },
   data () {
     return {
