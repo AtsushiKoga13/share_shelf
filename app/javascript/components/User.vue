@@ -5,10 +5,14 @@
     <img v-bind:src="user_image" v-bind:alt="user_image_name">
     <a v-bind:href="'/users/' + user_id + '/edit'">プロフィール画像を変更する</a>
     <p>{{ user_image_name }}</p>
+    <button @click="change_tag_id = 0">all</button>
+    <button @click="change_tag_id = 1">change1</button>
+    <button @click="change_tag_id = 2">change2</button>
+    <button @click="change_tag_id = 3">change3</button>
     <ul id="example-1">
-      <li v-for="(book, index) in books" :key="book.title">
+      <li v-for="(book) in books(change_tag_id)" :key="book.title">
         <p>{{ book.title }}</p>
-        <a @click="DisplayBook(index)"><img :src="book.image"></a>
+        <a @click="DisplayBook(book)"><img :src="book.image"></a>
       </li>
     </ul>
     <div v-if="show" class="modal">
@@ -27,7 +31,8 @@ export default {
   data () {
     return {
       show: false,
-      BookInfo: "" 
+      BookInfo: "",
+      change_tag_id: 0
     }
   },
   computed: {
@@ -43,8 +48,16 @@ export default {
     user_image_name () {
       return this.$store.state.user_info[2]
     },
-    books () {
-      return this.$store.state.books
+    books() {
+      return function(id) {
+        if (id == 0) {
+          return this.$store.state.books
+        } else {
+          return this.$store.state.books.filter(function(value){
+            return value.tag_id == id;
+          })
+        }
+      } 
     }
   },
   mounted: function() {
@@ -69,12 +82,9 @@ export default {
         }
       })
     },
-    ClassName(index) {
-      return index + "_book"
-    },
-    DisplayBook(index) {
+    DisplayBook(book) {
       this.show = true
-      this.BookInfo = this.$store.state.books[index]
+      this.BookInfo = book
     },
     close () {
       this.show = false

@@ -2,7 +2,7 @@
   <div>
     <p>Search</p>
     <div class="search-box sumaho_mt65">
-      <form @submit.prevent="exec" accept-charset="UTF-8">
+      <form @submit.prevent="BookSearch" accept-charset="UTF-8">
         <input name="utf8" type="hidden" value="✓">
         <label for="keyword">検索</label>
         <input v-model="keyword" type="text" name="keyword" id="keyword" placeholder="書籍・DVD・CD名等">
@@ -10,14 +10,11 @@
       </form>
     </div>
     <div>
-      <p>{{ choose }}</p>
       <ul id="example-1">
         <li v-for="(item, index) in result" :key="item.params.title">
           <p>{{ item.params.title }}</p>
           <img :src="item.params.mediumImageUrl" v-bind:alt="item.params.titleKana">
-          <button type='submit' @click="sendindex(index,1)">保存1</button>
-          <button type='submit' @click="sendindex(index,2)">保存2</button>
-          <button type='submit' @click="sendindex(index,3)">保存3</button>
+          <BookInfo :index="index" :result="result" v-if="CheckShelf(item.params)"/>
         </li>
       </ul>
     </div>
@@ -25,22 +22,40 @@
 </template>
 
 <script>
+import BookInfo from './BookSaveButton';
 import axios from 'axios';
+import store from 'store/store.js'
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 };
 
 export default {
+  components: {
+    BookInfo,
+  },
   data () {
     return {
       result: "",
-      keyword: "",
-      choose: ""
+      keyword: ""
+    }
+  },
+  computed: {
+    CheckShelf () {
+      return function(book) {
+        if (store.state.books.some((element) => element.title  == book.title)) {
+          return false
+        } else {
+          return true
+        }
+      }
+    },
+    user_id () {
+      return this.$store.state.user_info[0].id
     }
   },
   methods: {
-    exec: function () {
+    BookSearch: function () {
       axios
       .get('/search', {
         params: {
@@ -48,21 +63,15 @@ export default {
         }
       })
       .then(response => (this.result = response.data))
-    },
-    sendindex(index,tag_id) {
-      var book_info = this.result[index];
-      var book_title = book_info.params.title
-      var book_image = book_info.params.mediumImageUrl
-      this.choose = book_title
-      axios
-      .post('/books', {
-        book: {
-          title: book_title,
-          image: book_image,
-          tag_id: tag_id
-        }
-      })
     }
+  },
+  mounted: function() {
+    axios
+      .get('/users/:id' )
+      .then(response => (store.state.user_info = response.data))
+    axios
+      .get('/books/' + this.user_id )
+      .then(response => (store.state.books = response.data))
   }
 }
 </script>
