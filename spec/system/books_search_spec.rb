@@ -6,7 +6,6 @@ RSpec.describe 'Books search', type: :system, js: true do
   let(:password) { "password" }
 
   before do
-    user.image = fixture_file_upload(File.join(Rails.root, "spec/factories/images/test_user_post_image.jpg"))
     visit login_path
     fill_in "Email", with: email
     fill_in "Password", with: password
@@ -38,7 +37,9 @@ RSpec.describe 'Books search', type: :system, js: true do
     expect(page).to have_selector("img[src$='test_user_post_image.jpg']")
     expect(page).to have_selector("img[alt$='テストタイトル']")
     expect(user.books.count).to eq 0
-    expect{ click_on '保存' }.to change{ user.books.count }.from(0).to(1)
+    # click_on '保存1'
+    # expect(user.books.count).to eq 1
+    expect{ click_on '保存1' }.to change{ user.books.count }.from(0).to(1)
     click_link 'User'
     expect(page).to have_content "テストタイトル"
     expect(page).to have_selector("img[src$='test_user_post_image.jpg']")
