@@ -6,7 +6,6 @@ RSpec.describe 'Users edit', type: :system, js: true do
   let(:password) { "password" }
 
   before do
-    user.image = fixture_file_upload(File.join(Rails.root, "spec/factories/images/test_user_post_image.jpg"))
     visit login_path
     fill_in "Email", with: email
     fill_in "Password", with: password
@@ -42,10 +41,10 @@ RSpec.describe 'Users edit', type: :system, js: true do
     it "can edit profile image" do
       visit edit_user_path(1)
       image_path = File.join(Rails.root, "spec/factories/images/test_image_1.jpg")
-      attach_file "user[image]", image_path
+      attach_file "user[avatar]", image_path
       expect(page).to have_selector("img[alt$='test_image_1.jpg']")
       click_button "Save changes"
-      expect(page).to have_selector("img[alt$='test_image_1.jpg']")
+      expect(page).to have_selector("img[src$='test_image_1.jpg']")
     end
   end
 
@@ -54,7 +53,7 @@ RSpec.describe 'Users edit', type: :system, js: true do
       visit edit_user_path(1)
       image_path = File.join(Rails.root, "spec/factories/images/large_size_image.png")
       page.accept_alert "Maximum file size is 5MB. Please choose a smaller file." do
-        attach_file "user[image]", image_path
+        attach_file "user[avatar]", image_path
       end
       expect(page).to have_content "Update your profile picture"
       expect(find('#submit_button')).to be_disabled

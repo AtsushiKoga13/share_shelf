@@ -60,7 +60,7 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.hosts << "rocky-inlet-42699.herokuapp.com"
+  config.hosts << "still-cliffs-77367.herokuapp.com"
 
   config.reload_classes_only_on_change = false
 
