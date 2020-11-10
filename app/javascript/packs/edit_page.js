@@ -2,8 +2,8 @@ window.addEventListener('popstate', function(e) {
   location.href="/user_page";
 });
 
-document.getElementById('user_image').addEventListener('change', function() {
-  var uploadFile = document.getElementById("user_image").files[0];
+document.getElementById('user_avatar').addEventListener('change', function() {
+  var uploadFile = document.getElementById("user_avatar").files[0];
   var fileSize = uploadFile.size/1024/1024;
   const button = document.getElementById("submit_button");
 

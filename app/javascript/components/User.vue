@@ -2,9 +2,8 @@
   <div>
     <p>Users</p>
     <div>{{ userinfo }}</div>
-    <img v-bind:src="user_image" v-bind:alt="user_image_name">
-    <a v-bind:href="'/users/' + user_id + '/edit'">プロフィール画像を変更する</a>
-    <p>{{ user_image_name }}</p>
+    <img v-bind:src="user_image">
+    <a v-bind:href="'/users/' + userinfo.id + '/edit'">プロフィール画像を変更する</a>
     <button @click="change_tag_id = 0">all</button>
     <button @click="change_tag_id = 1">change1</button>
     <button @click="change_tag_id = 2">change2</button>
@@ -37,18 +36,18 @@ export default {
     }
   },
   computed: {
-    user_id () {
-      return this.$store.state.user_info[0].id
-    },
+    // user_id () {
+    //   return this.$store.state.user_info[0].id
+    // },
     userinfo () {
-      return this.$store.state.user_info[0]
+      return this.$store.state.user_info
     },
     user_image () {
-      return this.$store.state.user_info[1]
+      return this.$store.state.user_info.avatar.url
     },
-    user_image_name () {
-      return this.$store.state.user_info[2]
-    },
+    // user_image_name () {
+    //   return this.$store.state.user_info[2]
+    // },
     books() {
       return function(id) {
         if (id == 0) {

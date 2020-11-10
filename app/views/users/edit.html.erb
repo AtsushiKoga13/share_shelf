@@ -22,12 +22,12 @@
       <div class="form_item">
       <%= f.label :upload_file %>
         <span class="image">
-          <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png" %>
+          <%= f.file_field :avatar, accept: "image/jpeg,image/gif,image/png" %>
         </span>
       </div>
       <p>
-        <% if @user.image.attached? %>
-        <%= image_tag @user.image, class: "account-image", id: "preview", style: "max-width:200px; max-height:200px;" %>
+        <% if @user.avatar %>
+        <img src="<%= @user.avatar %>" class="account-image" id="preview" style="max-width:200px; max-height:200px;">
         <% end %>
       </p>
       <div class="form_item">

@@ -15,12 +15,10 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    env_file:
+     - ./.env
     environment:
       - "SELENIUM_DRIVER_URL=http://selenium_chrome:4444/wd/hub"
-      - AWS_ACCESS_KEY=ENV["AWS_ACCESS_KEY"]
-      - AWS_SECRET_KEY=ENV["AWS_SECRET_KEY"]
-      - AWS_REGION=ENV["AWS_REGION"]
-      - AWS_BUCKET=ENV["AWS_BUCKET"]
     stdin_open: true
     tty: true
   selenium_chrome:

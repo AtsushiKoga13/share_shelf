@@ -35,6 +35,7 @@ gem 'image_processing',           '1.9.3'
 gem 'mini_magick',                '4.9.5'
 gem 'cloudinary'
 gem 'activestorage-cloudinary-service'
+gem 'carrierwave'
 gem 'rakuten_web_service'
 
 group :development, :test do
