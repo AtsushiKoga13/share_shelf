@@ -51,7 +51,7 @@ export default {
       }
     },
     user_id () {
-      return this.$store.state.user_info[0].id
+      return this.$store.state.user_info.id
     }
   },
   methods: {

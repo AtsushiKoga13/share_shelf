@@ -32,22 +32,20 @@ export default {
     return {
       show: false,
       BookInfo: "",
-      change_tag_id: 0
+      change_tag_id: 0,
+      DeleteBookId: ""
     }
   },
   computed: {
-    // user_id () {
-    //   return this.$store.state.user_info[0].id
-    // },
+    user_id () {
+      return this.$store.state.user_info.id
+    },
     userinfo () {
       return this.$store.state.user_info
     },
     user_image () {
       return this.$store.state.user_info.avatar.url
     },
-    // user_image_name () {
-    //   return this.$store.state.user_info[2]
-    // },
     books() {
       return function(id) {
         if (id == 0) {
@@ -68,6 +66,14 @@ export default {
       .get('/books/' + this.user_id )
       .then(response => (store.state.books = response.data))
   },
+  watch: {
+    DeleteBookId: function() {
+      const checkDeleteBook = (element) => element.id == this.DeleteBookId;
+      var index = this.$store.state.books.findIndex(checkDeleteBook)
+      this.$store.state.books.splice(index, 1)
+    },
+    deep: true
+  },
   methods: {
     DisplayBook(book) {
       this.show = true
@@ -77,12 +83,9 @@ export default {
       this.show = false
     },
     DeleteBook(book_id) {
-      // store.state.books.splice(book_id, 1)
       axios
         .delete('/books/' + book_id)
-      axios
-        .get('/books/' + this.user_id )
-        .then(response => (store.state.books = response.data))
+      this.DeleteBookId = book_id
     }
   }
 }
