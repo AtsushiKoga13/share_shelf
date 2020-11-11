@@ -1,5 +1,5 @@
 class UserUploader < CarrierWave::Uploader::Base
-  if Rails.env.production?
+  unless Rails.env.test?
     include Cloudinary::CarrierWave
   end
 
