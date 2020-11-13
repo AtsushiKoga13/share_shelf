@@ -44,7 +44,9 @@ export default {
       return this.$store.state.user_info
     },
     user_image () {
-      return this.$store.state.user_info.avatar.url
+      var url = this.$store.state.user_info.avatar.url
+      return url.replace( /http:/g , "https:" ) ;
+
     },
     books() {
       return function(id) {
