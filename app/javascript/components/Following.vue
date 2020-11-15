@@ -2,7 +2,7 @@
   <div>
     <router-link to="/follower">Follower</router-link>
     <p>Following</p>
-    {{following}}
+    {{followings}}
   </div>
 </template>
 
@@ -19,15 +19,14 @@ export default {
   computed: {
     user_id () {
       return this.$store.state.user_info.id
+    },
+    followings () {
+      return this.$store.state.followings
     }
   },
   mounted: function() {
-    axios
-      .get('/users/:id' )
-      .then(response => (store.state.user_info = response.data))
-    axios
-      .get('/users/' + this.user_id + "/following" )
-      .then(response => (this.following = response.data))
+    this.$store.commit('get_user_info')
+    this.$store.commit('get_followings')
   }
 }
 </script>

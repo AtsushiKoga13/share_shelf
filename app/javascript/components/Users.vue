@@ -30,7 +30,6 @@ export default {
   },
   data () {
     return {
-      users: "",
       follow_switch: true
     }
   },
@@ -38,9 +37,12 @@ export default {
     user_id () {
       return this.$store.state.user_info.id
     },
+    users () {
+      return this.$store.state.users.filter(user => user.id != this.user_id)
+    },
     CheckFollow() {
       return function(id) {
-        if (store.state.following.some((element) => element.id  == id)) {
+        if (store.state.followings.some((element) => element.id  == id)) {
           return false
         } else {
           return true
@@ -49,15 +51,9 @@ export default {
     }
   },
   mounted: function() {
-    axios
-      .get('/users/:id' )
-      .then(response => (store.state.user_info = response.data))
-    axios
-      .get('/users/' + this.user_id + "/following" )
-      .then(response => (store.state.following = response.data))
-    axios
-      .get('/users' )
-      .then(response => (this.users = response.data))
+    this.$store.commit('get_user_info')
+    this.$store.commit('get_followings')
+    this.$store.commit('get_users')
   }
 }
 </script>

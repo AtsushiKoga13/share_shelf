@@ -3,8 +3,7 @@
     <p>Users</p>
     <router-link to="/following">Follow</router-link>
     <router-link to="/follower">Follower</router-link>
-    <p>follower</p>
-    <div>{{ userinfo }}</div>
+    <div>{{ user_information }}</div>
     <img v-bind:src="user_image">
     <a v-bind:href="'/users/' + userinfo.id + '/edit'">プロフィール画像を変更する</a>
     <button @click="change_tag_id = 0">all</button>
@@ -40,6 +39,9 @@ export default {
     }
   },
   computed: {
+    user_information () {
+      return this.$store.state.user_info
+    },
     user_id () {
       return this.$store.state.user_info.id
     },
@@ -48,8 +50,7 @@ export default {
     },
     user_image () {
       var url = this.$store.state.user_info.avatar.url
-      return url.replace( /http:/g , "https:" ) ;
-
+      return url.replace( /http:/g , "https:" );
     },
     books() {
       return function(id) {
@@ -64,12 +65,8 @@ export default {
     }
   },
   mounted: function() {
-    axios
-      .get('/users/:id' )
-      .then(response => (store.state.user_info = response.data))
-    axios
-      .get('/books/' + this.user_id )
-      .then(response => (store.state.books = response.data))
+    this.$store.commit('get_user_info')
+    this.$store.commit('get_books_info')
   },
   watch: {
     DeleteBookId: function() {

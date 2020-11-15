@@ -2,7 +2,7 @@
   <div>
     <router-link to="/following">Following</router-link>
     <p>Follower</p>
-    {{followers}}
+    {{follower}}
   </div>
 </template>
 
@@ -11,23 +11,17 @@ import axios from 'axios';
 import store from 'store/store.js'
 
 export default {
-  data () {
-    return {
-      followers: ""
-    }
-  },
   computed: {
     user_id () {
       return this.$store.state.user_info.id
-    }
+    },
+    follower () {
+      return this.$store.state.followers
+    },
   },
   mounted: function() {
-    axios
-      .get('/users/:id' )
-      .then(response => (store.state.user_info = response.data))
-    axios
-      .get('/users/' + this.user_id + "/followers" )
-      .then(response => (this.followers = response.data))
+    this.$store.commit('get_user_info')
+    this.$store.commit('get_followers')
   }
 }
 </script>

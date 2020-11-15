@@ -66,12 +66,8 @@ export default {
     }
   },
   mounted: function() {
-    axios
-      .get('/users/:id' )
-      .then(response => (store.state.user_info = response.data))
-    axios
-      .get('/books/' + this.user_id )
-      .then(response => (store.state.books = response.data))
+    this.$store.commit('get_user_info')
+    this.$store.commit('get_books_info')
   }
 }
 </script>
