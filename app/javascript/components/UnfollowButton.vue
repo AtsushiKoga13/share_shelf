@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="follow_button" v-if="ButtonShow">
-      <button type='submit' @click="follow(user_id); ButtonShow=!ButtonShow">Follow</button>
+      <button type='submit' @click="unfollow(user_id); ButtonShow=!ButtonShow">Unfollow</button>
     </div>
     <div v-else>
-      <button type='submit' @click="unfollow(user_id); ButtonShow=!ButtonShow">Unfollow</button>
+      <button type='submit' @click="follow(user_id); ButtonShow=!ButtonShow">Follow</button>
     </div>
   </div>
 </template>

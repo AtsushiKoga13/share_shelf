@@ -6,7 +6,12 @@
         <p>{{ user.name }}</p>
         <p>{{ user.id }}</p>
         <img :src="user.avatar.url" v-bind:alt="user.avatar.url">
-        <FollowButton :user_id="user.id"/>
+        <div v-if="CheckFollow(user.id)">
+          <FollowButton :user_id="user.id"/>
+        </div>
+        <div v-else>
+          <UnfollowButton :user_id="user.id"/>
+        </div>
       </li>
     </ul>
   </div>
@@ -16,10 +21,12 @@
 import axios from 'axios';
 import store from 'store/store.js'
 import FollowButton from './FollowButton';
+import UnfollowButton from './UnfollowButton';
 
 export default {
   components: {
     FollowButton,
+    UnfollowButton,
   },
   data () {
     return {
@@ -30,6 +37,15 @@ export default {
   computed: {
     user_id () {
       return this.$store.state.user_info.id
+    },
+    CheckFollow() {
+      return function(id) {
+        if (store.state.following.some((element) => element.id  == id)) {
+          return false
+        } else {
+          return true
+        }
+      }
     }
   },
   mounted: function() {
