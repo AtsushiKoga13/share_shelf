@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  # has_one_attached :image
   mount_uploader :avatar, UserUploader
   has_many :books, dependent: :destroy
   before_save { self.email = email.downcase }
@@ -10,8 +9,26 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   # validates :password, presence: true, length: { minimum: 6 }
-  # validates :image,   content_type: { in: %w[image/jpeg image/gif image/png],
-  #                                     message: "must be a valid image format" },
-  #                     size:         { less_than: 5.megabytes,
-  #                                     message: "should be less than 5MB" }
+  has_many :active_relationships, class_name:  "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent:   :destroy
+  has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent:   :destroy
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+
+  def follow(other_user)
+    following << other_user
+  end
+
+  # ユーザーをフォロー解除する
+  def unfollow(other_user)
+    active_relationships.find_by(followed_id: other_user.id).destroy
+  end
+
+  # 現在のユーザーがフォローしてたらtrueを返す
+  def following?(other_user)
+    following.include?(other_user)
+  end
 end

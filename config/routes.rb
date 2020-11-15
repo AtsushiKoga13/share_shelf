@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   get '/user_page',  to: 'home#index'
   get '/search', to: "api/rakuten#search"
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
   resources :books, only: [:show, :create, :destroy]
+  resources :relationships, only: [:create, :destroy]
 end

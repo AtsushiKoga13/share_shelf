@@ -1,6 +1,9 @@
 <template>
   <div>
     <p>Users</p>
+    <router-link to="/following">Follow</router-link>
+    <router-link to="/follower">Follower</router-link>
+    <p>follower</p>
     <div>{{ userinfo }}</div>
     <img v-bind:src="user_image">
     <a v-bind:href="'/users/' + userinfo.id + '/edit'">プロフィール画像を変更する</a>

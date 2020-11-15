@@ -7,12 +7,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    # user_info = []
     user = User.find(session[:user_id])
-    # user_info << user
-    # user_info << encode_base64(user.image) if user.image.attached?
-    # user_info << user.image.filename if user.image.attached?
-    # render json: user_info
     render json: user
   end
 
@@ -22,7 +17,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    # @user.image.attach(params[:user][:image])
     if @user.save
       log_in @user
       redirect_to root_path
@@ -42,6 +36,18 @@ class UsersController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def following
+    user = User.find(session[:user_id])
+    users = user.following
+    render json: users
+  end
+
+  def followers
+    user = User.find(session[:user_id])
+    users = user.followers
+    render json: users
   end
 
   private

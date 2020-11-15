@@ -8,5 +8,6 @@ export default new Vuex.Store({
     message_2: 'vuex active',
     user_info: {avatar:{url:""}},
     books: [{title:""}],
+    following: [{id:""}],
   }
 })

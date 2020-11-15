@@ -4,6 +4,9 @@ import Home from "../components/Home.vue"
 import User from "../components/User.vue"
 import Page_2 from "../components/Page_2.vue"
 import Search from "../components/Search.vue"
+import Users from "../components/Users.vue"
+import Following from "../components/Following.vue"
+import Follower from "../components/Follower.vue"
 
 Vue.use(VueRouter)
 
@@ -29,6 +32,21 @@ export default new VueRouter({
       path: '/search',
       name: 'search',
       component: Search
+    },
+    {
+      path: '/users',
+      name: 'Users',
+      component: Users
+    },
+    {
+      path: '/following',
+      name: 'following',
+      component: Following
+    },
+    {
+      path: '/follower',
+      name: 'follower',
+      component: Follower
     }
   ]
 })

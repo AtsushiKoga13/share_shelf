@@ -9,6 +9,7 @@
           <v-tab to="/user_page" class="header_link" replace>User</v-tab>
           <v-tab to="/page2" class="header_link" replace>notification</v-tab>
           <v-tab to="/search" class="header_link" replace>Search</v-tab>
+          <v-tab to="/users" class="header_link" replace>Users</v-tab>
           <v-tab rel="nofollow" data-method="delete" to="/logout" class="header_link">Log out</v-tab>
         </v-tabs>
       </v-app-bar>
