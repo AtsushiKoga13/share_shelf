@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
-  get '/user_page',  to: 'home#index'
+  get '/user/my_page',  to: 'home#index'
   get '/search', to: "api/rakuten#search"
   resources :users do
     member do

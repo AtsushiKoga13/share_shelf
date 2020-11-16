@@ -1,8 +1,7 @@
 class BooksController < ApplicationController
   def show
-    user = User.find(session[:user_id])
-    books = user.books
-    render json: books
+    params[:id] = session[:user_id] if params[:id] == "my_page"
+    render json: User.find(params[:id]).books
   end
 
   def create

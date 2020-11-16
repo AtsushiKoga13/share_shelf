@@ -1,5 +1,5 @@
 window.addEventListener('popstate', function(e) {
-  location.href="/user_page";
+  location.href="/user/my_page";
 });
 
 document.getElementById('user_avatar').addEventListener('change', function() {

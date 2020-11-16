@@ -12,13 +12,10 @@ export default new Vuex.Store({
     followers: [{id:""}],
     followings: [{id:""}]
   },
-  getters: {
-    // squared: (state) => state.count* 2
-  },
   mutations: {
-    get_user_info(state) {
+    get_user_info(state, user_id) {
       axios
-        .get('/users/:id' )
+        .get('/users/' + user_id )
         .then(response => (state.user_info = response.data))
     },
     get_users(state) {
@@ -26,9 +23,9 @@ export default new Vuex.Store({
         .get('/users' )
         .then(response => (state.users = response.data))
     },
-    get_books_info(state) {
+    get_books_info(state, user_id) {
       axios
-        .get('/books/' + this.user_id )
+        .get('/books/' + user_id )
         .then(response => (state.books = response.data))
     },
     get_followers(state) {
@@ -40,11 +37,6 @@ export default new Vuex.Store({
       axios
         .get('/users/' + this.user_id + "/following" )
         .then(response => (state.followings = response.data))
-    }
-  },
-  actions: {
-    increment (context) {
-      context.commit('increment')
     }
   }
 })

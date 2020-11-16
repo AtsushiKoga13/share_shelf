@@ -11,7 +11,7 @@
     </div>
     <div>
       <ul id="example-1">
-        <li v-for="(item, index) in result" :key="item.params.title">
+        <li v-for="(item, index) in result" :key="item.params.id">
           <p>{{ item.params.title }}</p>
           <img :src="item.params.mediumImageUrl" v-bind:alt="item.params.titleKana">
           <BookSaveButton :index="index" :result="result" v-if="CheckShelf(item.params)"/>
@@ -66,8 +66,8 @@ export default {
     }
   },
   mounted: function() {
-    this.$store.commit('get_user_info')
-    this.$store.commit('get_books_info')
+    this.$store.commit('get_user_info', "my_page")
+    this.$store.commit('get_books_info',"my_page")
   }
 }
 </script>

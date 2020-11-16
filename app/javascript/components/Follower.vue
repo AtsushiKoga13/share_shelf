@@ -20,7 +20,7 @@ export default {
     },
   },
   mounted: function() {
-    this.$store.commit('get_user_info')
+    this.$store.commit('get_user_info', "my_page")
     this.$store.commit('get_followers')
   }
 }

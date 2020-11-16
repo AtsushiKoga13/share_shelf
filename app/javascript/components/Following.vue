@@ -11,11 +11,6 @@ import axios from 'axios';
 import store from 'store/store.js'
 
 export default {
-  data () {
-    return {
-      following: ""
-    }
-  },
   computed: {
     user_id () {
       return this.$store.state.user_info.id
@@ -25,7 +20,7 @@ export default {
     }
   },
   mounted: function() {
-    this.$store.commit('get_user_info')
+    this.$store.commit('get_user_info', "my_page")
     this.$store.commit('get_followings')
   }
 }

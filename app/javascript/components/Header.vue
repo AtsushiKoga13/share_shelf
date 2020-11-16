@@ -6,7 +6,7 @@
         <v-toolbar-title>Share Shelf</v-toolbar-title>
         <v-tabs right>
           <v-tab to="/" class="header_link" replace>Home</v-tab>
-          <v-tab to="/user_page" class="header_link" replace>User</v-tab>
+          <v-tab to="/user/my_page" class="header_link" replace>User</v-tab>
           <v-tab to="/page2" class="header_link" replace>notification</v-tab>
           <v-tab to="/search" class="header_link" replace>Search</v-tab>
           <v-tab to="/users" class="header_link" replace>Users</v-tab>

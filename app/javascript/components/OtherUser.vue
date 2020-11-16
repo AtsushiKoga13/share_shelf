@@ -2,11 +2,16 @@
   <div>
     <p>Users</p>
     {{ $route.params.id }}
-    <router-link to="/following">Follow</router-link>
-    <router-link to="/follower">Follower</router-link>
+    <!-- <router-link to="/following">Follow</router-link>
+    <router-link to="/follower">Follower</router-link> -->
     <div>{{ user_information }}</div>
     <img v-bind:src="user_image">
-    <a v-bind:href="'/users/' + userinfo.id + '/edit'">プロフィール画像を変更する</a>
+    <div v-if="CheckFollow(user_id)">
+      <FollowButton :user_id="user_id"/>
+    </div>
+    <div v-else>
+      <UnfollowButton :user_id="user_id"/>
+    </div>
     <button @click="change_tag_id = 0">all</button>
     <button @click="change_tag_id = 1">change1</button>
     <button @click="change_tag_id = 2">change2</button>
@@ -15,7 +20,6 @@
       <li v-for="book in books(change_tag_id)" :key="book.id">
         <p>{{ book.title }}</p>
         <a @click="DisplayBook(book)"><img :src="book.image"></a>
-        <button @click="DeleteBook(book.id)">削除</button>
       </li>
     </ul>
     <div v-if="show" class="modal">
@@ -29,53 +33,66 @@
 <script>
 import axios from 'axios';
 import store from 'store/store.js'
+import FollowButton from './FollowButton';
+import UnfollowButton from './UnfollowButton';
 
 export default {
+  components: {
+    FollowButton,
+    UnfollowButton,
+  },
   data () {
     return {
       show: false,
       BookInfo: "",
       change_tag_id: 0,
-      DeleteBookId: ""
+      DeleteBookId: "",
+      other_user_info: {avatar:{url:""}},
+      user_books: [{title:""}]
     }
   },
   computed: {
     user_information () {
-      return this.$store.state.user_info
+      return this.other_user_info
     },
     user_id () {
-      return this.$store.state.user_info.id
+      return this.other_user_info.id
     },
     userinfo () {
-      return this.$store.state.user_info
+      return this.other_user_info
     },
     user_image () {
-      var url = this.$store.state.user_info.avatar.url
+      var url = this.other_user_info.avatar.url
       return url.replace( /http:/g , "https:" );
     },
     books() {
       return function(id) {
         if (id == 0) {
-          return this.$store.state.books
+          return this.user_books
         } else {
-          return this.$store.state.books.filter(function(value){
+          return this.user_books.filter(function(value){
             return value.tag_id == id;
           })
         }
       } 
+    },
+    CheckFollow() {
+      return function(id) {
+        if (store.state.followings.some((element) => element.id  == id)) {
+          return false
+        } else {
+          return true
+        }
+      }
     }
   },
   mounted: function() {
-    this.$store.commit('get_user_info', this.$route.params.id)
-    this.$store.commit('get_books_info', this.$route.params.id)
-  },
-  watch: {
-    DeleteBookId: function() {
-      const checkDeleteBook = (element) => element.id == this.DeleteBookId;
-      var index = this.$store.state.books.findIndex(checkDeleteBook)
-      this.$store.state.books.splice(index, 1)
-    },
-    deep: true
+    axios
+      .get('/users/' + this.$route.params.id )
+      .then(response => (this.other_user_info = response.data))
+    axios
+      .get('/books/' + this.$route.params.id )
+      .then(response => (this.user_books = response.data))
   },
   methods: {
     DisplayBook(book) {
