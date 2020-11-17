@@ -1,7 +1,8 @@
 <template>
   <div>
     <p>Users</p>
-    <ul id="example-1">
+    <spinner v-show="spiner_loading"></spinner>
+    <ul v-show="!spiner_loading" id="example-1">
       <li v-for="user in users" :key="user.id">
         <router-link :to="'/users/' + user.id">miru</router-link>
         <p>{{ user.name }}</p>
@@ -23,18 +24,23 @@ import axios from 'axios';
 import store from 'store/store.js'
 import FollowButton from './FollowButton';
 import UnfollowButton from './UnfollowButton';
+const Spinner = window.VueSimpleSpinner;
 
 export default {
   components: {
+    Spinner,
     FollowButton,
     UnfollowButton,
   },
   data () {
     return {
-      follow_switch: true
+      follow_switch: true,
     }
   },
   computed: {
+    spiner_loading () {
+      return this.$store.state.isLoading_users
+    },
     user_id () {
       return this.$store.state.user_info.id
     },

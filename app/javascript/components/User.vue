@@ -2,26 +2,29 @@
   <div>
     <p>Users</p>
     {{ $route.params.id }}
-    <router-link to="/following">Follow</router-link>
-    <router-link to="/follower">Follower</router-link>
-    <div>{{ user_information }}</div>
-    <img v-bind:src="user_image">
-    <a v-bind:href="'/users/' + userinfo.id + '/edit'">プロフィール画像を変更する</a>
-    <button @click="change_tag_id = 0">all</button>
-    <button @click="change_tag_id = 1">change1</button>
-    <button @click="change_tag_id = 2">change2</button>
-    <button @click="change_tag_id = 3">change3</button>
-    <ul id="example-1">
-      <li v-for="book in books(change_tag_id)" :key="book.id">
-        <p>{{ book.title }}</p>
-        <a @click="DisplayBook(book)"><img :src="book.image"></a>
-        <button @click="DeleteBook(book.id)">削除</button>
-      </li>
-    </ul>
-    <div v-if="show" class="modal">
-      <p>{{ BookInfo.title }}</p>
-      <p><img :src="BookInfo.image"></p>
-      <button @click="close">閉じる</button>
+    <spinner v-show="spiner_loading"></spinner>
+    <div v-show="!spiner_loading">
+      <router-link to="/following">Follow</router-link>
+      <router-link to="/follower">Follower</router-link>
+      <div>{{ user_information }}</div>
+      <img v-bind:src="user_image">
+      <a v-bind:href="'/users/' + userinfo.id + '/edit'">プロフィール画像を変更する</a>
+      <button @click="change_tag_id = 0">all</button>
+      <button @click="change_tag_id = 1">change1</button>
+      <button @click="change_tag_id = 2">change2</button>
+      <button @click="change_tag_id = 3">change3</button>
+      <ul id="example-1">
+        <li v-for="book in books(change_tag_id)" :key="book.id">
+          <p>{{ book.title }}</p>
+          <a @click="DisplayBook(book)"><img :src="book.image"></a>
+          <button @click="DeleteBook(book.id)">削除</button>
+        </li>
+      </ul>
+      <div v-if="show" class="modal">
+        <p>{{ BookInfo.title }}</p>
+        <p><img :src="BookInfo.image"></p>
+        <button @click="close">閉じる</button>
+      </div>
     </div>
   </div>
 </template>
@@ -29,8 +32,12 @@
 <script>
 import axios from 'axios';
 import store from 'store/store.js'
+const Spinner = window.VueSimpleSpinner;
 
 export default {
+  components: {
+    Spinner
+  },
   data () {
     return {
       show: false,
@@ -40,6 +47,9 @@ export default {
     }
   },
   computed: {
+    spiner_loading () {
+      return this.$store.state.isLoading
+    },
     user_information () {
       return this.$store.state.user_info
     },
@@ -68,6 +78,8 @@ export default {
   mounted: function() {
     this.$store.commit('get_user_info', this.$route.params.id)
     this.$store.commit('get_books_info', this.$route.params.id)
+    this.$store.commit('get_followings')
+    this.$store.commit('get_followers')
   },
   watch: {
     DeleteBookId: function() {

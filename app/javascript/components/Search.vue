@@ -6,11 +6,12 @@
         <input name="utf8" type="hidden" value="✓">
         <label for="keyword">検索</label>
         <input v-model="keyword" type="text" name="keyword" id="keyword" placeholder="書籍・DVD・CD名等">
-        <input type="submit" class="fas submit_btn" value="find">
+        <input @click="isLoading=!isLoading" type="submit" class="fas submit_btn" value="find">
       </form>
     </div>
+    <spinner v-show="isLoading"></spinner>
     <div>
-      <ul id="example-1">
+      <ul v-show="!isLoading" id="example-1">
         <li v-for="(item, index) in result" :key="item.params.id">
           <p>{{ item.params.title }}</p>
           <img :src="item.params.mediumImageUrl" v-bind:alt="item.params.titleKana">
@@ -25,6 +26,7 @@
 import BookSaveButton from './BookSaveButton';
 import axios from 'axios';
 import store from 'store/store.js'
+const Spinner = window.VueSimpleSpinner;
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -33,11 +35,13 @@ axios.defaults.headers.common = {
 export default {
   components: {
     BookSaveButton,
+    Spinner
   },
   data () {
     return {
       result: "",
-      keyword: ""
+      keyword: "",
+      isLoading: false
     }
   },
   computed: {
@@ -49,20 +53,21 @@ export default {
           return true
         }
       }
-    },
-    user_id () {
-      return this.$store.state.user_info.id
     }
   },
   methods: {
     BookSearch: function () {
+      let self = this
       axios
       .get('/search', {
         params: {
           keyword: this.keyword
         }
       })
-      .then(response => (this.result = response.data))
+      // .then(response => (this.result = response.data))
+      .then(function(response) {
+          self.result = response.data;
+          self.isLoading = false})
     }
   },
   mounted: function() {

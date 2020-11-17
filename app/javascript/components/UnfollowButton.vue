@@ -29,10 +29,12 @@ axios.defaults.headers.common = {
     follow(follow_id) {
       axios
         .post('/relationships', { id: follow_id })
+        // this.$store.dispatch('increment')
     },
     unfollow(unfollow_id) {
       axios
         .delete('/relationships/' + unfollow_id)
+        // this.$store.dispatch('increment')
     }
   }
 }

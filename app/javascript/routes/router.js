@@ -24,11 +24,6 @@ export default new VueRouter({
       name: 'Page_2',
       component: Page_2
     },
-    // {
-    //   path: '/user_page',
-    //   name: 'user_page',
-    //   component: User
-    // },
     {
       path: '/user/:id',
       name: 'user/my_page',
@@ -59,5 +54,12 @@ export default new VueRouter({
       name: 'follower',
       component: Follower
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { x: 100, y: 100 };
+    }
+  }
 })

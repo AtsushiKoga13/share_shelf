@@ -2,30 +2,33 @@
   <div>
     <p>Users</p>
     {{ $route.params.id }}
+    <spinner v-show="isLoading"></spinner>
     <!-- <router-link to="/following">Follow</router-link>
     <router-link to="/follower">Follower</router-link> -->
-    <div>{{ user_information }}</div>
-    <img v-bind:src="user_image">
-    <div v-if="CheckFollow(user_id)">
-      <FollowButton :user_id="user_id"/>
-    </div>
-    <div v-else>
-      <UnfollowButton :user_id="user_id"/>
-    </div>
-    <button @click="change_tag_id = 0">all</button>
-    <button @click="change_tag_id = 1">change1</button>
-    <button @click="change_tag_id = 2">change2</button>
-    <button @click="change_tag_id = 3">change3</button>
-    <ul id="example-1">
-      <li v-for="book in books(change_tag_id)" :key="book.id">
-        <p>{{ book.title }}</p>
-        <a @click="DisplayBook(book)"><img :src="book.image"></a>
-      </li>
-    </ul>
-    <div v-if="show" class="modal">
-      <p>{{ BookInfo.title }}</p>
-      <p><img :src="BookInfo.image"></p>
-      <button @click="close">閉じる</button>
+    <div v-show="!isLoading">
+      <div>{{ user_information }}</div>
+      <img v-bind:src="user_image">
+      <div v-if="CheckFollow(user_id)">
+        <FollowButton :user_id="user_id"/>
+      </div>
+      <div v-else>
+        <UnfollowButton :user_id="user_id"/>
+      </div>
+      <button @click="change_tag_id = 0">all</button>
+      <button @click="change_tag_id = 1">change1</button>
+      <button @click="change_tag_id = 2">change2</button>
+      <button @click="change_tag_id = 3">change3</button>
+      <ul id="example-1">
+        <li v-for="book in books(change_tag_id)" :key="book.id">
+          <p>{{ book.title }}</p>
+          <a @click="DisplayBook(book)"><img :src="book.image"></a>
+        </li>
+      </ul>
+      <div v-if="show" class="modal">
+        <p>{{ BookInfo.title }}</p>
+        <p><img :src="BookInfo.image"></p>
+        <button @click="close">閉じる</button>
+      </div>
     </div>
   </div>
 </template>
@@ -35,9 +38,11 @@ import axios from 'axios';
 import store from 'store/store.js'
 import FollowButton from './FollowButton';
 import UnfollowButton from './UnfollowButton';
+const Spinner = window.VueSimpleSpinner;
 
 export default {
   components: {
+    Spinner,
     FollowButton,
     UnfollowButton,
   },
@@ -47,8 +52,9 @@ export default {
       BookInfo: "",
       change_tag_id: 0,
       DeleteBookId: "",
-      other_user_info: {avatar:{url:""}},
-      user_books: [{title:""}]
+      other_user_info: {id:"",avatar:{url:""}},
+      user_books: [{title:""}],
+      isLoading: true
     }
   },
   computed: {
@@ -87,9 +93,17 @@ export default {
     }
   },
   mounted: function() {
+    // this.$store.commit('get_other_user_info', this.$route.params.id)
+    // axios
+    //   .get('/users/' + this.$route.params.id )
+    //   .then(response => (this.other_user_info = response.data))
+    let self = this
     axios
       .get('/users/' + this.$route.params.id )
-      .then(response => (this.other_user_info = response.data))
+      .then(function(response) {
+            self.other_user_info = response.data;
+            self.isLoading = false
+            })
     axios
       .get('/books/' + this.$route.params.id )
       .then(response => (this.user_books = response.data))
