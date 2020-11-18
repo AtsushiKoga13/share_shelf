@@ -23,13 +23,27 @@ class User < ApplicationRecord
     following << other_user
   end
 
-  # ユーザーをフォロー解除する
   def unfollow(other_user)
     active_relationships.find_by(followed_id: other_user.id).destroy
   end
 
-  # 現在のユーザーがフォローしてたらtrueを返す
   def following?(other_user)
     following.include?(other_user)
+  end
+
+  def create_book_post(user,book_name,book_image)
+    posts.create(
+      content:"#{user.name}さんが「#{book_name}」を本棚に登録しました。",
+      image: book_image,
+      name: user.name
+    )
+  end
+
+  def create_follow_post(user,follow_user)
+    posts.create(
+      content:"#{follow_user.name}さんにフォローされました。",
+      image: follow_user.avatar.url,
+      name: follow_user.name
+    )
   end
 end

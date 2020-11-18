@@ -12,6 +12,7 @@ export default new Vuex.Store({
     users: [{id:"",avatar:{url:""}}],
     followers: [{id:""}],
     followings: [{id:""}],
+    posts: [{content:"",id:"",image:""}],
     isLoading: true,
     isLoading_users: true,
   },
@@ -57,7 +58,12 @@ export default new Vuex.Store({
         // .then(function(response) {
         //   state.followings = response.data;
         //   state.isLoading = false})
-    }
+    },
+    get_posts(state) {
+      axios
+        .get('/posts')
+        .then(response => (state.posts = response.data))
+    },
   },
   // actions: {
   //   increment ({ commit }) {

@@ -14,22 +14,23 @@
 
 <script>
 import axios from 'axios';
+import store from 'store/store.js'
 
 export default {
-  data () {
-    return {
-      posts: "",
-    }
-  },
   computed: {
+    posts () {
+      return this.$store.state.posts
+    },
   },
   mounted: function() {
-    axios
-      .get('/posts' )
-      .then(response => (this.posts = response.data))
+    this.$store.commit('get_posts')
   }
 }
 </script>
 
 <style lang="scss" scoped>
+img {
+  max-width:200px;
+  max-height:200px;
+}
 </style>
