@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   get '/user/my_page',  to: 'home#index'
+  post '/books/change_tag/:id',  to: 'books#change_tag'
   get '/search', to: "api/rakuten#search"
   resources :users do
     member do

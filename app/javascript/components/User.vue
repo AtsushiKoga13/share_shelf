@@ -21,8 +21,7 @@
         </li>
       </ul>
       <div v-if="show" class="modal">
-        <p>{{ BookInfo.title }}</p>
-        <p><img :src="BookInfo.image"></p>
+        <BookModal :BookInfo="BookInfo" />
         <button @click="close">閉じる</button>
       </div>
     </div>
@@ -32,11 +31,13 @@
 <script>
 import axios from 'axios';
 import store from 'store/store.js'
+import BookModal from './BookModal';
 const Spinner = window.VueSimpleSpinner;
 
 export default {
   components: {
-    Spinner
+    Spinner,
+    BookModal
   },
   data () {
     return {

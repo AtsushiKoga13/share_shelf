@@ -65,10 +65,10 @@ export default new Vuex.Store({
         .then(response => (state.posts = response.data))
     },
   },
-  // actions: {
-  //   increment ({ commit }) {
-  //     commit('get_followings')
-  //     console.log("actions")
-  //   }
-  // }
+  actions: {
+    increment ({ commit }) {
+      commit('get_books_info',"my_page")
+      console.log("actions")
+    }
+  }
 })

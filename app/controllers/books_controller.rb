@@ -15,6 +15,11 @@ class BooksController < ApplicationController
     book.destroy
   end
 
+  def change_tag
+    user = User.find(session[:user_id])
+    user.books.find(params[:id]).update(tag_id: params[:book][:tag_id])
+  end
+
   private
 
   def book_params
