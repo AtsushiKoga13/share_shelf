@@ -8,12 +8,6 @@
     <div v-show="!isLoading">
       <div>{{ user_information }}</div>
       <img v-bind:src="user_image">
-      <div v-if="CheckFollow(user_id)">
-        <FollowButton :user_id="user_id"/>
-      </div>
-      <div v-else>
-        <UnfollowButton :user_id="user_id"/>
-      </div>
       <button @click="change_tag_id = 0">all</button>
       <button @click="change_tag_id = 1">change1</button>
       <button @click="change_tag_id = 2">change2</button>
@@ -36,15 +30,11 @@
 <script>
 import axios from 'axios';
 import store from 'store/store.js'
-import FollowButton from './FollowButton';
-import UnfollowButton from './UnfollowButton';
 const Spinner = window.VueSimpleSpinner;
 
 export default {
   components: {
-    Spinner,
-    FollowButton,
-    UnfollowButton,
+    Spinner
   },
   data () {
     return {

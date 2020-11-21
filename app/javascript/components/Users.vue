@@ -8,12 +8,7 @@
         <p>{{ user.name }}</p>
         <p>{{ user.id }}</p>
         <img :src="user_image(user)" v-bind:alt="user.avatar.url">
-        <div v-if="CheckFollow(user.id)">
-          <FollowButton :user_id="user.id"/>
-        </div>
-        <div v-else>
-          <UnfollowButton :user_id="user.id"/>
-        </div>
+        <FollowButton :user="user"/>
       </li>
     </ul>
   </div>
@@ -23,19 +18,12 @@
 import axios from 'axios';
 import store from 'store/store.js'
 import FollowButton from './FollowButton';
-import UnfollowButton from './UnfollowButton';
 const Spinner = window.VueSimpleSpinner;
 
 export default {
   components: {
     Spinner,
-    FollowButton,
-    UnfollowButton,
-  },
-  data () {
-    return {
-      follow_switch: true,
-    }
+    FollowButton
   },
   computed: {
     spiner_loading () {
@@ -52,15 +40,6 @@ export default {
     },
     users () {
       return this.$store.state.users.filter(user => user.id != this.user_id)
-    },
-    CheckFollow() {
-      return function(id) {
-        if (store.state.followings.some((element) => element.id  == id)) {
-          return false
-        } else {
-          return true
-        }
-      }
     }
   },
   mounted: function() {

@@ -64,17 +64,11 @@ export default new Vuex.Store({
       axios
         .get('/users/id/followers' )
         .then(response => (state.followers = response.data))
-        // .then(function(response) {
-        //   state.followers = response.data;
-        //   state.isLoading = false})
     },
     get_followings(state) {
       axios
         .get('/users/id/following' )
         .then(response => (state.followings = response.data))
-        // .then(function(response) {
-        //   state.followings = response.data;
-        //   state.isLoading = false})
     },
     get_posts(state) {
       axios
@@ -86,11 +80,5 @@ export default new Vuex.Store({
         .get('/impressions')
         .then(response => (state.impressions = response.data))
     },
-  },
-  actions: {
-    increment ({ commit }) {
-      commit('get_books_info',"my_page")
-      console.log("actions")
-    }
   }
 })

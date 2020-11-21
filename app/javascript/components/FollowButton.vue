@@ -1,10 +1,13 @@
 <template>
   <div>
-    <div class="follow_button" v-if="ButtonShow">
-      <button type='submit' @click="follow(user_id); ButtonShow=!ButtonShow">Follow</button>
-    </div>
-    <div v-else>
-      <button type='submit' @click="unfollow(user_id); ButtonShow=!ButtonShow">Unfollow</button>
+    <spinner v-show="loading"></spinner>
+    <div v-show="!loading">
+      <div v-if="CheckFollow(user.id)">
+        <button type='submit' @click="follow(user)">Follow</button>
+      </div>
+      <div v-else>
+        <button type='submit' @click="unfollow(user)">Unfollow</button>
+      </div>
     </div>
   </div>
 </template>
@@ -12,27 +15,53 @@
 <script>
 import store from 'store/store.js'
 import axios from 'axios';
+const Spinner = window.VueSimpleSpinner;
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 };
- export default {
+export default {
   props: {
-      user_id: ''
+    user: ''
   },
-  data(){
-    return{
-      ButtonShow: true
+  components: {
+    Spinner
+  },
+  data: function () {
+    return {
+      loading: false
+    }
+  },
+  computed: {
+    CheckFollow() {
+      return function(id) {
+        return store.state.followings
+          .some((element) => element.id  == id) ? false : true
+      }
     }
   },
   methods: {
-    follow(follow_id) {
+    follow(user) {
+      let self = this
+      self.loading = true
       axios
-        .post('/relationships', { id: follow_id })
+        .post('/relationships', { id: user.id })
+        .then(function(response) {
+                  self.$store.state.followings.push(user);
+                  self.loading = false})
     },
-    unfollow(unfollow_id) {
+    unfollow(user) {
+      let self = this
+      self.loading = true
       axios
-        .delete('/relationships/' + unfollow_id)
+        .delete('/relationships/' + user.id)
+        .then(function(response) {
+          // store内から対象ユーザーを探して削除
+          const checkDeleteFollow = (element) => element.id == user.id;
+          var index = self.$store.state.followings.findIndex(checkDeleteFollow)
+          self.$store.state.followings.splice(index, 1)
+          self.loading = false
+        })
     }
   }
 }
