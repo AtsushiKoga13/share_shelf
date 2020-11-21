@@ -1,8 +1,7 @@
 <template>
   <div>
-    <p>Users</p>
+    <p>User</p>
     {{ $route.params.id }}
-    <div>{{impression}}</div>
     <spinner v-show="spiner_loading"></spinner>
     <div v-show="!spiner_loading">
       <router-link to="/following">Follow</router-link>
@@ -22,7 +21,7 @@
         </li>
       </ul>
       <div v-if="show" class="modal">
-        <BookModal :BookInfo="BookInfo" :impression="impression" />
+        <BookModal :BookInfo="BookInfo" />
         <button @click="close">閉じる</button>
       </div>
     </div>
@@ -83,6 +82,7 @@ export default {
     this.$store.commit('get_books_info', this.$route.params.id)
     this.$store.commit('get_followings')
     this.$store.commit('get_followers')
+    this.$store.commit('get_impressions')
   },
   watch: {
     DeleteBookId: function() {
@@ -96,9 +96,6 @@ export default {
     DisplayBook(book) {
       this.show = true
       this.BookInfo = book
-      axios
-        .get('/impressions/' + book.id)
-        .then(response => (this.impression = response.data))
     },
     close () {
       this.show = false

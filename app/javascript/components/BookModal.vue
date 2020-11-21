@@ -2,33 +2,39 @@
   <div>
     <p>{{ BookInfo.title }}</p>
     <p><img :src="BookInfo.image"></p>
-    <p>{{BookInfo.id}}</p>
-    <div>{{impression.content}}</div>
-    <div>{{NewImpression}}</div>
-    <div v-if="impression.content == null" @click="ShowCreate=!ShowCreate">感想を追加する</div>
-    <form v-if="ShowCreate" @submit.prevent="CreateImpression" enctype="multipart/form-data" accept-charset="UTF-8">
-      <v-col cols="12" sm="6" md="3">
-        <textarea label="Name" type="textarea" v-model="NewImpression"></textarea>
-      </v-col>
-      <v-btn type="submit" value="Save changes" elevation="2">感想を追加する</v-btn>
-    </form>
-    <div v-if="impression.content != null" @click="ShowEdit=!ShowEdit">感想を編集する</div>
-    <form v-if="ShowEdit" @submit.prevent="EditImpression" enctype="multipart/form-data" accept-charset="UTF-8">
-      <v-col cols="12" sm="6" md="3">
-        <textarea label="Name" type="textarea" v-model="impression.content"></textarea>
-      </v-col>
-      <v-btn type="submit" value="Save changes" elevation="2">感想を登録する</v-btn>
-    </form>
-    <div v-if="impression.content != null" @click="DestroyImpression">感想を削除する</div>
-    <button v-if="button_show1(BookInfo.tag_id)" @click="ChangeTag(BookInfo.id,1)">1にタグ変更</button>
-    <button v-if="button_show2(BookInfo.tag_id)" @click="ChangeTag(BookInfo.id,2)">2にタグ変更</button>
-    <button v-if="button_show3(BookInfo.tag_id)" @click="ChangeTag(BookInfo.id,3)">3にタグ変更</button>
+    <spinner v-show="show"></spinner>
+    <div v-show="!show">
+      <div>{{Impression}}</div>
+      <div v-if="HasImpression">
+        <div @click="ShowCreate=!ShowCreate">感想を追加する</div>
+        <form v-if="ShowCreate" @submit.prevent="CreateImpression" enctype="multipart/form-data" accept-charset="UTF-8">
+          <v-col cols="12" sm="6" md="3">
+            <textarea label="Name" type="textarea" v-model="NewImpression"></textarea>
+          </v-col>
+          <v-btn type="submit" value="Save changes" elevation="2">感想を追加する</v-btn>
+        </form>
+      </div>
+      <div v-else>
+        <div @click="ShowEdit=!ShowEdit">感想を編集する</div>
+        <form v-if="ShowEdit" @submit.prevent="EditImpression(ImpressionId)" enctype="multipart/form-data" accept-charset="UTF-8">
+          <v-col cols="12" sm="6" md="3">
+            <textarea label="Name" type="textarea" v-model="ImpressionContent"></textarea>
+          </v-col>
+          <v-btn type="submit" value="Save changes" elevation="2">感想を登録する</v-btn>
+        </form>
+        <div @click="DestroyImpression(ImpressionId)">感想を削除する</div>
+      </div>
+    </div>
+    <button v-if="button_show(1)" @click="ChangeTag(1)">1にタグ変更</button>
+    <button v-if="button_show(2)" @click="ChangeTag(2)">2にタグ変更</button>
+    <button v-if="button_show(3)" @click="ChangeTag(3)">3にタグ変更</button>
   </div>
 </template>
 
 <script>
 import store from 'store/store.js'
 import axios from 'axios';
+const Spinner = window.VueSimpleSpinner;
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -36,82 +42,78 @@ axios.defaults.headers.common = {
 
 export default {
   props: {
-    BookInfo: '',
-    impression: {content:""}
+    BookInfo: ''
+  },
+  components: {
+    Spinner
   },
   data: function () {
     return {
+      show: false,
       ShowEdit: false,
       ShowCreate: false,
-      NewImpression: ""
-    }
-  },
-  computed: {
-    ImpressionContent () {
-      return this.impression.content
+      NewImpression: "",
+      ImpressionContent: ""
     }
   },
   methods: {
-    ChangeTag(book_id,tag) {
+    ChangeTag(tag) {
       axios
-        .post('/books/change_tag/' + book_id, {
-          book: {
-            tag_id: tag
-          }
+        .post('/books/change_tag/' + this.BookInfo.id, {
+          book: { tag_id: tag }
         })
-      this.$store.state.books.find(element => element.id == book_id).tag_id = tag
+      this.$store.state.books.find(element => element.id == this.BookInfo.id).tag_id = tag
     },
-    EditImpression() {
+    EditImpression(impression_id) {
       axios
-        .patch('/impressions/' + this.impression.id,{
-          impression:{ content: this.impression.content }
+        .patch('/impressions/' + impression_id,{
+          impression:{ content: this.ImpressionContent }
         })
+      this.$store.state.impressions
+        .find(item => item.id === impression_id).content = this.ImpressionContent
       this.ShowEdit = false
     },
     CreateImpression() {
+      let self = this
+      this.show = true
       axios
         .post('/impressions',{
           impression:{ content: this.NewImpression,
                         book_id: this.BookInfo.id }
         })
+        .then(function() {
+          axios
+            .get('/impressions')
+            .then(function(response) {
+                  store.state.impressions = response.data;
+                  self.show = false})
+        })
       this.ShowCreate = false
     },
-    DestroyImpression() {
+    DestroyImpression(impression_id) {
+      console.log(impression_id)
       axios
-        .delete('/impressions/' + this.impression.id)
-    },
+        .delete('/impressions/' + impression_id)
+
+      // store内から対象の感想を探して削除する
+      const checkDeleteImpression = (element) => element.id == impression_id;
+      var index = this.$store.state.impressions.findIndex(checkDeleteImpression)
+      this.$store.state.impressions.splice(index, 1)
+    }
   },
   computed: {
-    get_impression () {
-      axios
-        .get('/impressions/' + 86)
-        .then(response => (this.impression = response.data))
+    Impression () {
+      return store.getters.getImpressionContent(this.BookInfo.id);
     },
-    button_show1 () {
-      return function(id) {
-        if (id == 1) {
-          return false
-        } else {
-          return true
-        }
-      }
+    ImpressionId () {
+      return store.getters.getImpressionId(this.BookInfo.id);
     },
-    button_show2 () {
-      return function(id) {
-        if (id == 2) {
-          return false
-        } else {
-          return true
-        }
-      }
+    HasImpression () {
+      return this.Impression == null ? true : false
     },
-    button_show3 () {
-      return function(id) {
-        if (id == 3) {
-          return false
-        } else {
-          return true
-        }
+    button_show () {
+      return function(num) {
+        return this.BookInfo.tag_id == num ? false : true
       }
     }
   }

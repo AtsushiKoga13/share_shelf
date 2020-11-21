@@ -15,5 +15,5 @@ Rails.application.routes.draw do
   resources :books, only: [:show, :create, :destroy]
   resources :relationships, only: [:create, :destroy]
   resources :posts, only: [:index, :create, :destroy]
-  resources :impressions, only: [:create, :show, :update, :destroy]
+  resources :impressions, only: [:index, :create, :show, :update, :destroy]
 end

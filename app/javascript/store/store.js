@@ -15,6 +15,23 @@ export default new Vuex.Store({
     posts: [{content:"",id:"",image:""}],
     isLoading: true,
     isLoading_users: true,
+    impressions: {content:""}
+  },
+  getters: {
+    getImpressionContent: (state) => (id) => {
+      if (state.impressions.find(item => item.book_id === id) == undefined) {
+        return null
+      } else {
+        return state.impressions.find(item => item.book_id === id).content
+      }
+    },
+    getImpressionId: (state) => (id) => {
+      if (state.impressions.find(item => item.book_id === id) == undefined) {
+        return null
+      } else {
+        return state.impressions.find(item => item.book_id === id).id
+      }
+    },
   },
   mutations: {
     get_user_info(state, user_id) {
@@ -63,6 +80,11 @@ export default new Vuex.Store({
       axios
         .get('/posts')
         .then(response => (state.posts = response.data))
+    },
+    get_impressions(state) {
+      axios
+        .get('/impressions')
+        .then(response => (state.impressions = response.data))
     },
   },
   actions: {
