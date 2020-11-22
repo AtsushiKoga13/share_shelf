@@ -59,7 +59,7 @@ export default new VueRouter({
     if (savedPosition) {
       return savedPosition;
     } else {
-      return { x: 100, y: 100 };
+      return { x: 0, y: 0 };
     }
   }
 })

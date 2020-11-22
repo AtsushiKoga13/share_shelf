@@ -35,15 +35,17 @@ class User < ApplicationRecord
     posts.create(
       content:"#{user.name}さんが「#{book_name}」を本棚に登録しました。",
       image: book_image,
-      name: user.name
+      name: user.name,
+      post_type: 2 #フォローユーザーの書籍追加通知
     )
   end
 
-  def create_follow_post(user,follow_user)
+  def create_follow_post(follower)
     posts.create(
-      content:"#{follow_user.name}さんにフォローされました。",
-      image: follow_user.avatar.url,
-      name: follow_user.name
+      content:"#{follower.name}さんにフォローされました。",
+      image: follower.avatar.url,
+      name: follower.name,
+      post_type: 1 #フォロー通知
     )
   end
 end

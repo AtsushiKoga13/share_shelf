@@ -73,7 +73,9 @@ export default new Vuex.Store({
     get_posts(state) {
       axios
         .get('/posts')
-        .then(response => (state.posts = response.data))
+        .then(function(response) {
+          state.posts = response.data;
+          state.isLoading = false})
     },
     get_impressions(state) {
       axios

@@ -3,7 +3,7 @@ class RelationshipsController < ApplicationController
     current_user = User.find(session[:user_id])
     user = User.find(params[:id])
     current_user.follow(user)
-    user.create_follow_post(user,current_user)
+    user.create_follow_post(current_user)
   end
 
   def destroy

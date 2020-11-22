@@ -1,7 +1,8 @@
 <template>
   <div>
     <p>Posts</p>
-    <div>
+    <spinner v-show="spiner_loading"></spinner>
+    <div v-show="!spiner_loading">
       <ul id="example-1">
         <li v-for="post in posts" :key="post.id">
           <p>{{post.content}}</p>
@@ -15,9 +16,16 @@
 <script>
 import axios from 'axios';
 import store from 'store/store.js'
+const Spinner = window.VueSimpleSpinner;
 
 export default {
+  components: {
+    Spinner
+  },
   computed: {
+    spiner_loading () {
+      return this.$store.state.isLoading
+    },
     posts () {
       return this.$store.state.posts
     },
