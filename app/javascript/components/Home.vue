@@ -6,7 +6,7 @@
       <ul id="example-1">
         <li v-for="post in posts" :key="post.id">
           <p>{{post.content}}</p>
-          <img :src="post.image" :alt="post.image">
+          <img :src="post_image(post)" :alt="post.image">
         </li>
       </ul>
     </div>
@@ -28,6 +28,12 @@ export default {
     },
     posts () {
       return this.$store.state.posts
+    },
+    post_image() {
+      return function(post) {
+        var url = post.image
+        return url.replace( /http:/g , "https:" );
+      }
     },
   },
   mounted: function() {
