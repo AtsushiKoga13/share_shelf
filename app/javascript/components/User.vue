@@ -1,29 +1,44 @@
 <template>
   <div>
-    <p>User</p>
-    {{ $route.params.id }}
+    <p class="font-weight-black display-1">My Page</p>
     <spinner v-show="spiner_loading"></spinner>
     <div v-show="!spiner_loading">
-      <router-link to="/following">Follow</router-link>
-      <router-link to="/follower">Follower</router-link>
-      <div>{{ user_information }}</div>
-      <img v-bind:src="user_image">
-      <a v-bind:href="'/users/' + userinfo.id + '/edit'">プロフィール画像を変更する</a>
-      <button @click="change_tag_id = 0">all</button>
-      <button @click="change_tag_id = 1">change1</button>
-      <button @click="change_tag_id = 2">change2</button>
-      <button @click="change_tag_id = 3">change3</button>
-      <ul id="example-1">
-        <li v-for="book in books(change_tag_id)" :key="book.id">
-          <p>{{ book.title }}</p>
-          <a @click="DisplayBook(book)"><img :src="book.image"></a>
-          <button @click="DeleteBook(book.id)">削除</button>
-        </li>
-      </ul>
-      <div v-if="show" class="modal">
-        <BookModal :BookInfo="BookInfo" />
-        <button @click="close">閉じる</button>
+      <v-row class="align-end">
+        <v-img contain max-height="100" max-width="100" v-bind:src="user_image"></v-img>
+        <div>
+          <p class="ml-4">{{userinfo.name}}さんの本棚</p>
+          <v-btn class="ml-4" small elevation="2" v-bind:href="'/users/' + userinfo.id + '/edit'">登録情報を変更する</v-btn>
+        </div>
+      </v-row>
+      <div class="pt-2 pb-8">
+        <router-link  class="text-decoration-none font-weight-medium" to="/following">Follow</router-link>
+        <span>/</span>
+        <router-link class="text-decoration-none font-weight-medium" to="/follower">Follower</router-link>
       </div>
+      <div class="pb-4">
+        <v-btn color="amber lighten-2" small @click="change_tag_id = 0">全て</v-btn>
+        <v-btn color="amber lighten-3" small @click="change_tag_id = 1">読み終わり</v-btn>
+        <v-btn color="amber lighten-4" small @click="change_tag_id = 2">読みかけ</v-btn>
+        <v-btn color="amber lighten-5" small @click="change_tag_id = 3">読みたい</v-btn>
+      </div>
+      <v-row class="brown lighten-5" wrap>
+        <v-col align="center" cols="6" sm="3" md="2" v-for="book in books(change_tag_id)" :key="book.id">
+          <a @click.stop="dialog = true" @click="DisplayBook(book)"><img class="text-center" :src="book.image"></a>
+        </v-col>
+      </v-row>
+      <template>
+        <v-row justify="center">
+          <v-dialog v-model="dialog" max-width="600">
+            <v-card>
+              <BookModal :BookInfo="BookInfo"/>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn id="close" color="green darken-1" text @click="dialog = false">閉じる</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-row>
+      </template>
     </div>
   </div>
 </template>
@@ -41,22 +56,15 @@ export default {
   },
   data () {
     return {
-      show: false,
       BookInfo: "",
       change_tag_id: 0,
-      DeleteBookId: "",
-      impression:{content:""}
+      impression:{content:""},
+      dialog: false,
     }
   },
   computed: {
     spiner_loading () {
       return this.$store.state.isLoading
-    },
-    user_information () {
-      return this.$store.state.user_info
-    },
-    user_id () {
-      return this.$store.state.user_info.id
     },
     userinfo () {
       return this.$store.state.user_info
@@ -71,7 +79,7 @@ export default {
           return this.$store.state.books
         } else {
           return this.$store.state.books.filter(function(value){
-            return value.tag_id == id;
+            value.tag_id == id;
           })
         }
       } 
@@ -84,26 +92,9 @@ export default {
     this.$store.commit('get_followers')
     this.$store.commit('get_impressions')
   },
-  watch: {
-    DeleteBookId: function() {
-      const checkDeleteBook = (element) => element.id == this.DeleteBookId;
-      var index = this.$store.state.books.findIndex(checkDeleteBook)
-      this.$store.state.books.splice(index, 1)
-    },
-    deep: true
-  },
   methods: {
     DisplayBook(book) {
-      this.show = true
       this.BookInfo = book
-    },
-    close () {
-      this.show = false
-    },
-    DeleteBook(book_id) {
-      axios
-        .delete('/books/' + book_id)
-      this.DeleteBookId = book_id
     }
   }
 }
@@ -114,10 +105,7 @@ export default {
   position:absolute;
   top:0;
   left:0;
-}
-
-img {
-  max-width:200px;
-  max-height:200px;
+  width:100%;
+  height:100%;
 }
 </style>

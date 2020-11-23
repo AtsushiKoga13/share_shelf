@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from "vue-router"
 import Home from "../components/Home.vue"
 import User from "../components/User.vue"
-import Page_2 from "../components/Page_2.vue"
 import Search from "../components/Search.vue"
 import Users from "../components/Users.vue"
 import Following from "../components/Following.vue"
@@ -18,11 +17,6 @@ export default new VueRouter({
       path: '/',
       name: 'home',
       component: Home
-    },
-    {
-      path: '/page2',
-      name: 'Page_2',
-      component: Page_2
     },
     {
       path: '/user/:id',

@@ -1,34 +1,46 @@
 <template>
-  <div>
-    <p>{{ BookInfo.title }}</p>
-    <p><img :src="BookInfo.image"></p>
-    <spinner v-show="show"></spinner>
-    <div v-show="!show">
-      <div>{{Impression}}</div>
-      <div v-if="HasImpression">
-        <div @click="ShowCreate=!ShowCreate">感想を追加する</div>
-        <form v-if="ShowCreate" @submit.prevent="CreateImpression" enctype="multipart/form-data" accept-charset="UTF-8">
-          <v-col cols="12" sm="6" md="3">
-            <textarea label="Name" type="textarea" v-model="NewImpression"></textarea>
-          </v-col>
-          <v-btn type="submit" value="Save changes" elevation="2">感想を追加する</v-btn>
-        </form>
-      </div>
-      <div v-else>
-        <div @click="ShowEdit=!ShowEdit">感想を編集する</div>
-        <form v-if="ShowEdit" @submit.prevent="EditImpression(ImpressionId)" enctype="multipart/form-data" accept-charset="UTF-8">
-          <v-col cols="12" sm="6" md="3">
-            <textarea label="Name" type="textarea" v-model="ImpressionContent"></textarea>
-          </v-col>
-          <v-btn type="submit" value="Save changes" elevation="2">感想を登録する</v-btn>
-        </form>
-        <div @click="DestroyImpression(ImpressionId)">感想を削除する</div>
-      </div>
-    </div>
-    <button v-if="button_show(1)" @click="ChangeTag(1)">1にタグ変更</button>
-    <button v-if="button_show(2)" @click="ChangeTag(2)">2にタグ変更</button>
-    <button v-if="button_show(3)" @click="ChangeTag(3)">3にタグ変更</button>
-  </div>
+  <v-container>
+    <p class="pl-2 pt-1 title">{{ BookInfo.title }}</p>
+    <v-row>
+      <v-col class="text-center" cols="12" xs="12" md="3"><img :src="BookInfo.image"></v-col>
+      <v-col cols="12" xs="12" md="9">
+        <spinner v-show="show"></spinner>
+        <div v-show="!show">
+          <p class="caption">感想</p>
+          <div>{{Impression}}</div>
+          <div v-if="HasImpression">
+            <v-btn text color="primary" @click="ShowCreate=!ShowCreate">{{CreateImpressionText}}</v-btn>
+            <form v-if="ShowCreate" @submit.prevent="CreateImpression" enctype="multipart/form-data" accept-charset="UTF-8">
+              <v-col class="pb-0" cols="12">
+                <v-textarea filled label="Impression" type="textarea" v-model="NewImpression"></v-textarea>
+              </v-col>
+              <v-col class="text-right pt-0">
+                <v-btn text color="primary" type="submit" value="Save changes" elevation="2">登録</v-btn>
+              </v-col>
+            </form>
+          </div>
+          <div v-else>
+            <v-row>
+              <v-btn text color="primary" @click="ShowEdit=!ShowEdit">{{EditImpressionText}}</v-btn>
+              <v-btn text color="error" @click="DestroyImpression(ImpressionId)">感想を削除する</v-btn>
+            </v-row>
+            <form v-if="ShowEdit" @submit.prevent="EditImpression(ImpressionId)" enctype="multipart/form-data" accept-charset="UTF-8">
+              <v-col class="pb-0" cols="12">
+                <v-textarea filled label="Impression" type="textarea" v-model="ImpressionContent"></v-textarea>
+              </v-col>
+              <v-col class="text-right pt-0">
+                <v-btn text color="primary" type="submit" value="Save changes" elevation="2">登録</v-btn>
+              </v-col>
+            </form>
+          </div>
+        </div>
+      </v-col>
+    </v-row>
+    <v-btn class="ml-1 mt-2" color="amber lighten-3" v-if="button_show(1)" @click="ChangeTag(1)">読み終わり本棚に移動</v-btn>
+    <v-btn class="ml-1 mt-2" color="amber lighten-4" v-if="button_show(2)" @click="ChangeTag(2)">読みかけ本棚に移動</v-btn>
+    <v-btn class="ml-1 mt-2" color="amber lighten-5" v-if="button_show(3)" @click="ChangeTag(3)">読みたい本棚に移動</v-btn>
+    <v-btn class="ml-1 mt-2 font-weight-medium" color="error" @click="DeleteBook(BookInfo.id)">本棚から削除</v-btn>
+  </v-container>
 </template>
 
 <script>
@@ -99,6 +111,16 @@ export default {
       const checkDeleteImpression = (element) => element.id == impression_id;
       var index = this.$store.state.impressions.findIndex(checkDeleteImpression)
       this.$store.state.impressions.splice(index, 1)
+    },
+    DeleteBook(book_id) {
+      axios
+        .delete('/books/' + book_id)
+
+      // store内から対象の書籍を探して削除する
+      const checkDeleteBook = (element) => element.id == book_id;
+      var index = this.$store.state.books.findIndex(checkDeleteBook)
+      this.$store.state.books.splice(index, 1)
+      document.getElementById('close').click();
     }
   },
   computed: {
@@ -115,7 +137,13 @@ export default {
       return function(num) {
         return this.BookInfo.tag_id == num ? false : true
       }
-    }
+    },
+    CreateImpressionText () {
+      return this.ShowCreate == true ? "閉じる" : "感想を追加する"
+    },
+    EditImpressionText () {
+      return this.ShowEdit == true ? "閉じる" : "感想を編集する"
+    },
   }
 }
 </script>
