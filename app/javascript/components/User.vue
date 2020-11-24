@@ -1,12 +1,13 @@
 <template>
   <div>
     <p class="font-weight-black display-1">My Page</p>
+    <p class="subtitle-1">{{userinfo.name}}さんの本棚</p>
     <spinner v-show="spiner_loading"></spinner>
     <div v-show="!spiner_loading">
       <v-row class="align-end">
         <v-img contain max-height="100" max-width="100" v-bind:src="user_image"></v-img>
         <div>
-          <p class="ml-4">{{userinfo.name}}さんの本棚</p>
+          <p class="ml-4">{{userinfo.name}}</p>
           <v-btn class="ml-4" small elevation="2" v-bind:href="'/users/' + userinfo.id + '/edit'">登録情報を変更する</v-btn>
         </div>
       </v-row>
@@ -79,7 +80,7 @@ export default {
           return this.$store.state.books
         } else {
           return this.$store.state.books.filter(function(value){
-            value.tag_id == id;
+            return value.tag_id == id;
           })
         }
       } 

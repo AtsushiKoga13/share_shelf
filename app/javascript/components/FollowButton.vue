@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="mt-2">
     <spinner v-show="loading"></spinner>
     <div v-show="!loading">
       <div v-if="CheckFollow(user.id)">
-        <button type='submit' @click="follow(user)">Follow</button>
+        <v-btn elevation="2" small type='submit' @click="follow(user)">Follow</v-btn>
       </div>
       <div v-else>
-        <button type='submit' @click="unfollow(user)">Unfollow</button>
+        <v-btn elevation="2" small type='submit' @click="unfollow(user)">Unfollow</v-btn>
       </div>
     </div>
   </div>

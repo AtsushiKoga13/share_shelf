@@ -1,11 +1,14 @@
 <template>
   <div>
     <p class="font-weight-black display-1">Users</p>
+    <p class="subtitle-1">Share Shelfを利用しているユーザー</p>
     <spinner v-show="spiner_loading"></spinner>
     <v-row v-show="!spiner_loading" id="example-1">
-      <v-col cols="12" sm="6" md="4" v-for="user in users" :key="user.id">
-        <router-link :to="'/users/' + user.id"><p>{{ user.name }}</p></router-link>
-        <router-link class="text-center" :to="'/users/' + user.id"><img :src="user_image(user)" v-bind:alt="user.avatar.url"></router-link>
+      <v-col class="pb-4" xs="6" sm="4" md="3" v-for="user in users" :key="user.id">
+        <p class="title"><router-link class="text-decoration-none" :to="'/users/' + user.id">{{ user.name }}</router-link></p>
+        <router-link class="text-center" :to="'/users/' + user.id">
+          <img :src="user_image(user)" v-bind:alt="user.avatar.url">
+        </router-link>
         <FollowButton :user="user"/>
       </v-col>
     </v-row>
@@ -49,8 +52,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../assets/stylesheets/common/common.scss";
+
 img {
-  max-width:200px;
-  max-height:200px;
+  max-width:100px;
+  max-height:100px;
+  @include display_pc {
+    max-width:150px;
+    max-height:150px;
+  }
 }
 </style>
