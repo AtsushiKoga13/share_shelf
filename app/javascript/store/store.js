@@ -10,9 +10,9 @@ export default new Vuex.Store({
     other_user_info: {avatar:{url:""}},
     books: [{title:""}],
     users: [{id:"",avatar:{url:""}}],
-    followers: [{id:""}],
-    followings: [{id:""}],
-    posts: [{content:"",id:"",image:""}],
+    followers: [{id:"", avatar: {url: "" } }],
+    followings: [{id:"", avatar: {url: "" } }],
+    posts: [{content:"", id: "", image: ""}],
     isLoading: true,
     isLoading_users: true,
     impressions: {content:""}

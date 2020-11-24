@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get '/user/my_page',  to: 'home#index'
   post '/books/change_tag/:id',  to: 'books#change_tag'
   get '/search', to: "api/rakuten#search"
+  get '/following',  to: 'home#index'
+  get '/follower',  to: 'home#index'
   resources :users do
     member do
       get :following, :followers

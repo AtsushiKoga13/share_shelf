@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-btn class="mb-4" @click="back"><v-icon dark left>mdi-arrow-left</v-icon>戻る</v-btn>
     <spinner v-show="isLoading"></spinner>
     <div v-show="!isLoading">
       <p class="subtitle-1">{{ user_info.name }}さんの本棚</p>
@@ -104,6 +105,9 @@ export default {
   methods: {
     DisplayBook(book) {
       this.BookInfo = book
+    },
+    back() {
+      history.back()
     }
   }
 }

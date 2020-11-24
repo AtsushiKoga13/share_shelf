@@ -12,9 +12,9 @@
         </div>
       </v-row>
       <div class="pt-2 pb-8">
-        <router-link  class="text-decoration-none font-weight-medium" to="/following">Follow</router-link>
+        <router-link  class="text-decoration-none font-weight-medium" to="/following">Follow({{$store.state.followings.length}})</router-link>
         <span>/</span>
-        <router-link class="text-decoration-none font-weight-medium" to="/follower">Follower</router-link>
+        <router-link class="text-decoration-none font-weight-medium" to="/follower">Follower({{$store.state.followers.length}})</router-link>
       </div>
       <div class="pb-4">
         <v-btn color="amber lighten-2" small @click="change_tag_id = 0">全て</v-btn>
