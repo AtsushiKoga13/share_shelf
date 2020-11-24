@@ -19,11 +19,8 @@ export default new Vuex.Store({
   },
   getters: {
     getImpressionContent: (state) => (id) => {
-      if (state.impressions.find(item => item.book_id === id) == undefined) {
-        return null
-      } else {
-        return state.impressions.find(item => item.book_id === id).content
-      }
+      let ImpressionChoose = state.impressions.find(item => item.book_id === id)
+      return ImpressionChoose == undefined ? null : ImpressionChoose.content
     },
     getImpressionId: (state) => (id) => {
       if (state.impressions.find(item => item.book_id === id) == undefined) {
@@ -37,7 +34,6 @@ export default new Vuex.Store({
     get_user_info(state, user_id) {
       axios
         .get('/users/' + user_id )
-        // .then(response => (state.user_info = response.data))
         .then(function(response) {
           state.user_info = response.data;
           state.isLoading = false})
@@ -50,7 +46,6 @@ export default new Vuex.Store({
     get_users(state) {
       axios
       .get('/users')
-      // .then(response => (state.users = response.data))
       .then(function(response) {
             state.users = response.data;
             state.isLoading_users = false})

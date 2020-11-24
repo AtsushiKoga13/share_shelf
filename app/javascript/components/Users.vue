@@ -5,8 +5,8 @@
     <spinner v-show="spiner_loading"></spinner>
     <v-row v-show="!spiner_loading" id="example-1">
       <v-col class="pb-4" xs="6" sm="4" md="3" v-for="user in users" :key="user.id">
-        <p class="title"><router-link class="text-decoration-none" :to="'/users/' + user.id">{{ user.name }}</router-link></p>
-        <router-link class="text-center" :to="'/users/' + user.id">
+        <p class="title"><router-link class="text-decoration-none" :to="'/users_page/' + user.id">{{ user.name }}</router-link></p>
+        <router-link class="text-center" :to="'/users_page/' + user.id">
           <img :src="user_image(user)" v-bind:alt="user.avatar.url">
         </router-link>
         <FollowButton :user="user"/>

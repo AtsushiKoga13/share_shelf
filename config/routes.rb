@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
+  get '/users_page/:id',  to: 'home#index'
   get '/users_page',  to: 'home#index'
   get '/user/my_page',  to: 'home#index'
   post '/books/change_tag/:id',  to: 'books#change_tag'

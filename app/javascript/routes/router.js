@@ -24,7 +24,7 @@ export default new VueRouter({
       component: User
     },
     {
-      path: '/users/:id',
+      path: '/users_page/:id',
       name: 'other_user_page',
       component: OtherUser
     },

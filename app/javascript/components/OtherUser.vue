@@ -1,28 +1,47 @@
 <template>
   <div>
-    <p>Users</p>
-    {{ $route.params.id }}
     <spinner v-show="isLoading"></spinner>
-    <!-- <router-link to="/following">Follow</router-link>
-    <router-link to="/follower">Follower</router-link> -->
     <div v-show="!isLoading">
-      <div>{{ user_information }}</div>
-      <img v-bind:src="user_image">
-      <button @click="change_tag_id = 0">all</button>
-      <button @click="change_tag_id = 1">change1</button>
-      <button @click="change_tag_id = 2">change2</button>
-      <button @click="change_tag_id = 3">change3</button>
-      <ul id="example-1">
-        <li v-for="book in books(change_tag_id)" :key="book.id">
-          <p>{{ book.title }}</p>
-          <a @click="DisplayBook(book)"><img :src="book.image"></a>
-        </li>
-      </ul>
-      <div v-if="show" class="modal">
-        <p>{{ BookInfo.title }}</p>
-        <p><img :src="BookInfo.image"></p>
-        <button @click="close">閉じる</button>
+      <p class="subtitle-1">{{ user_info.name }}さんの本棚</p>
+      <v-row class="pb-8 align-end">
+        <v-img contain max-height="100" max-width="100" v-bind:src="user_image"></v-img>
+        <div>
+          <p class="ml-4">{{ user_info.name }}</p>
+        </div>
+      </v-row>
+      <div class="pb-4">
+        <v-btn color="amber lighten-2" small @click="change_tag_id = 0">全て</v-btn>
+        <v-btn color="amber lighten-3" small @click="change_tag_id = 1">読み終わり</v-btn>
+        <v-btn color="amber lighten-4" small @click="change_tag_id = 2">読みかけ</v-btn>
+        <v-btn color="amber lighten-5" small @click="change_tag_id = 3">読みたい</v-btn>
       </div>
+      <v-row class="brown lighten-5">
+        <v-col align="center" cols="6" sm="3" md="2" v-for="book in books(change_tag_id)" :key="book.id">
+          <a @click.stop="dialog = true" @click="DisplayBook(book)"><img class="text-center" :src="book.image"></a>
+        </v-col>
+      </v-row >
+      <template>
+        <v-row justify="center">
+          <v-dialog v-model="dialog" max-width="600">
+            <v-card>
+              <v-container>
+                <p class="pl-2 pt-1 title">{{ BookInfo.title }}</p>
+                <v-row>
+                  <v-col class="text-center" cols="12" xs="12" md="3"><img :src="BookInfo.image"></v-col>
+                  <v-col cols="12" xs="12" md="9">
+                    <p v-if="ImpressionContent(BookInfo.id)" class="caption">感想</p>
+                    <div>{{ImpressionContent(BookInfo.id)}}</div>
+                  </v-col>
+                </v-row>
+              </v-container>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn id="close" color="green darken-1" text @click="dialog = false">閉じる</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-row>
+      </template>
     </div>
   </div>
 </template>
@@ -38,23 +57,17 @@ export default {
   },
   data () {
     return {
-      show: false,
       BookInfo: "",
       change_tag_id: 0,
-      DeleteBookId: "",
       other_user_info: {id:"",avatar:{url:""}},
       user_books: [{title:""}],
-      isLoading: true
+      isLoading: true,
+      dialog: false,
+      impressions: [{content:"", book_id:""}]
     }
   },
   computed: {
-    user_information () {
-      return this.other_user_info
-    },
-    user_id () {
-      return this.other_user_info.id
-    },
-    userinfo () {
+    user_info () {
       return this.other_user_info
     },
     user_image () {
@@ -63,30 +76,17 @@ export default {
     },
     books() {
       return function(id) {
-        if (id == 0) {
-          return this.user_books
-        } else {
-          return this.user_books.filter(function(value){
-            return value.tag_id == id;
-          })
-        }
+        return id == 0 ? this.user_books : this.user_books.filter(function(value){ return value.tag_id == id })
       } 
     },
-    CheckFollow() {
+    ImpressionContent() {
       return function(id) {
-        if (store.state.followings.some((element) => element.id  == id)) {
-          return false
-        } else {
-          return true
-        }
-      }
-    }
+        let ImpressionChoose = this.impressions.find(item => item.book_id === id)
+        return ImpressionChoose == undefined ? null : ImpressionChoose.content
+      } 
+    },
   },
   mounted: function() {
-    // this.$store.commit('get_other_user_info', this.$route.params.id)
-    // axios
-    //   .get('/users/' + this.$route.params.id )
-    //   .then(response => (this.other_user_info = response.data))
     let self = this
     axios
       .get('/users/' + this.$route.params.id )
@@ -97,33 +97,14 @@ export default {
     axios
       .get('/books/' + this.$route.params.id )
       .then(response => (this.user_books = response.data))
+    axios
+      .get('/impressions/'+ this.$route.params.id)
+      .then(response => (this.impressions = response.data))
   },
   methods: {
     DisplayBook(book) {
-      this.show = true
       this.BookInfo = book
-    },
-    close () {
-      this.show = false
-    },
-    DeleteBook(book_id) {
-      axios
-        .delete('/books/' + book_id)
-      this.DeleteBookId = book_id
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.modal {
-  position:absolute;
-  top:0;
-  left:0;
-}
-
-img {
-  max-width:200px;
-  max-height:200px;
-}
-</style>

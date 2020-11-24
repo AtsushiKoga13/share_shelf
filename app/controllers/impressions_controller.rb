@@ -5,12 +5,11 @@ class ImpressionsController < ApplicationController
     render json: impressions
   end
   
-  # def show
-  #   book = Book.find(params[:id])
-  #   if book.impression
-  #     render json: book.impression
-  #   end
-  # end
+  def show
+    book_ids = "SELECT id FROM books WHERE user_id = #{params[:id]}"
+    impressions = Impression.where("book_id IN (#{book_ids})")
+    render json: impressions
+  end
 
   def create
     book = Book.find(params[:impression][:book_id])

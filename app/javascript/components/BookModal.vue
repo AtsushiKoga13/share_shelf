@@ -84,10 +84,12 @@ export default {
       this.$store.state.impressions
         .find(item => item.id === impression_id).content = this.ImpressionContent
       this.ShowEdit = false
+      this.ImpressionContent = ""
     },
     CreateImpression() {
       let self = this
       this.show = true
+      //作成成功後にgetリクエストを送るようにしたいため、thenの中でaxios通信する
       axios
         .post('/impressions',{
           impression:{ content: this.NewImpression,
@@ -101,12 +103,11 @@ export default {
                   self.show = false})
         })
       this.ShowCreate = false
+      this.NewImpression = ""
     },
     DestroyImpression(impression_id) {
-      console.log(impression_id)
       axios
         .delete('/impressions/' + impression_id)
-
       // store内から対象の感想を探して削除する
       const checkDeleteImpression = (element) => element.id == impression_id;
       var index = this.$store.state.impressions.findIndex(checkDeleteImpression)
@@ -115,7 +116,6 @@ export default {
     DeleteBook(book_id) {
       axios
         .delete('/books/' + book_id)
-
       // store内から対象の書籍を探して削除する
       const checkDeleteBook = (element) => element.id == book_id;
       var index = this.$store.state.books.findIndex(checkDeleteBook)

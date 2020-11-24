@@ -76,13 +76,7 @@ export default {
     },
     books() {
       return function(id) {
-        if (id == 0) {
-          return this.$store.state.books
-        } else {
-          return this.$store.state.books.filter(function(value){
-            return value.tag_id == id;
-          })
-        }
+        return id == 0 ? this.$store.state.books : this.$store.state.books.filter(function(value){ return value.tag_id == id })
       } 
     }
   },
@@ -100,13 +94,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.modal {
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-}
-</style>
