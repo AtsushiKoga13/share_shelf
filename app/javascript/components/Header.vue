@@ -8,7 +8,7 @@
           <v-tab to="/" class="header_link" >Home</v-tab>
           <v-tab to="/user/my_page" class="header_link" >MyPage</v-tab>
           <v-tab to="/search" class="header_link" >Search</v-tab>
-          <v-tab to="/users" class="header_link" >Users</v-tab>
+          <v-tab to="/users_page" class="header_link" >Users</v-tab>
           <v-tab rel="nofollow" data-method="delete" to="/logout" class="header_link">Log out</v-tab>
         </v-tabs>
       </v-app-bar>
@@ -25,7 +25,7 @@
               <v-list-item-title><router-link to="/search" class="header_link_sumaho">Search</router-link></v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <v-list-item-title><router-link to="/users" class="header_link_sumaho">Users</router-link></v-list-item-title>
+              <v-list-item-title><router-link to="/users_page" class="header_link_sumaho">Users</router-link></v-list-item-title>
             </v-list-item>
             <v-list-item>
               <v-list-item-title><router-link rel="nofollow" data-method="delete" to="/logout" class="header_link_sumaho">Log out</router-link></v-list-item-title>

@@ -34,7 +34,7 @@ export default new VueRouter({
       component: Search
     },
     {
-      path: '/users',
+      path: '/users_page',
       name: 'Users',
       component: Users
     },

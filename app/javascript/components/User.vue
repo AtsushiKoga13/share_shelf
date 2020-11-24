@@ -21,7 +21,7 @@
         <v-btn color="amber lighten-4" small @click="change_tag_id = 2">読みかけ</v-btn>
         <v-btn color="amber lighten-5" small @click="change_tag_id = 3">読みたい</v-btn>
       </div>
-      <v-row class="brown lighten-5" wrap>
+      <v-row class="brown lighten-5">
         <v-col align="center" cols="6" sm="3" md="2" v-for="book in books(change_tag_id)" :key="book.id">
           <a @click.stop="dialog = true" @click="DisplayBook(book)"><img class="text-center" :src="book.image"></a>
         </v-col>

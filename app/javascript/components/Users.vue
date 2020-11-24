@@ -1,16 +1,14 @@
 <template>
   <div>
-    <p>Users</p>
+    <p class="font-weight-black display-1">Users</p>
     <spinner v-show="spiner_loading"></spinner>
-    <ul v-show="!spiner_loading" id="example-1">
-      <li v-for="user in users" :key="user.id">
-        <router-link :to="'/users/' + user.id">miru</router-link>
-        <p>{{ user.name }}</p>
-        <p>{{ user.id }}</p>
-        <img :src="user_image(user)" v-bind:alt="user.avatar.url">
+    <v-row v-show="!spiner_loading" id="example-1">
+      <v-col cols="12" sm="6" md="4" v-for="user in users" :key="user.id">
+        <router-link :to="'/users/' + user.id"><p>{{ user.name }}</p></router-link>
+        <router-link class="text-center" :to="'/users/' + user.id"><img :src="user_image(user)" v-bind:alt="user.avatar.url"></router-link>
         <FollowButton :user="user"/>
-      </li>
-    </ul>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
