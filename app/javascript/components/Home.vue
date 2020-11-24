@@ -35,9 +35,6 @@ export default {
         return url.replace( /http:/g , "https:" );
       }
     },
-  },
-  mounted: function() {
-    this.$store.commit('get_posts')
   }
 }
 </script>

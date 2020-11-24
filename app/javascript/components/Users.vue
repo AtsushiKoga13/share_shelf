@@ -42,11 +42,6 @@ export default {
     users () {
       return this.$store.state.users.filter(user => user.id != this.user_id)
     }
-  },
-  mounted: function() {
-    this.$store.commit('get_user_info', "my_page")
-    this.$store.commit('get_followings')
-    this.$store.commit('get_users')
   }
 }
 </script>

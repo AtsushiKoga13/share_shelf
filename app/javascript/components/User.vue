@@ -80,13 +80,6 @@ export default {
       } 
     }
   },
-  mounted: function() {
-    this.$store.commit('get_user_info', this.$route.params.id)
-    this.$store.commit('get_books_info', this.$route.params.id)
-    this.$store.commit('get_followings')
-    this.$store.commit('get_followers')
-    this.$store.commit('get_impressions')
-  },
   methods: {
     DisplayBook(book) {
       this.BookInfo = book
