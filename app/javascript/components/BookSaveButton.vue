@@ -1,8 +1,8 @@
 <template>
-  <div class="book_button" v-if="ButtonShow">
-    <button type='submit' @click="sendindex(index,1); ButtonShow=!ButtonShow">保存1</button>
-    <button type='submit' @click="sendindex(index,2); ButtonShow=!ButtonShow">保存2</button>
-    <button type='submit' @click="sendindex(index,3); ButtonShow=!ButtonShow">保存3</button>
+  <div class="pb-3 book_button" v-if="ButtonShow">
+    <v-btn class="mb-4" x-small color="amber lighten-3" type='submit' @click="sendindex(index,1); ButtonShow=!ButtonShow">読み終わり本棚へ保存</v-btn>
+    <v-btn class="mb-4" x-small color="amber lighten-4" type='submit' @click="sendindex(index,2); ButtonShow=!ButtonShow">読みかけ本棚へ保存</v-btn>
+    <v-btn class="mb-4" x-small color="amber lighten-5" type='submit' @click="sendindex(index,3); ButtonShow=!ButtonShow">読みたい本棚へ保存</v-btn>
   </div>
 </template>
 
@@ -24,6 +24,7 @@ axios.defaults.headers.common = {
   },
   methods: {
     sendindex(index,tag_id) {
+      var self = this.$store
       var book_info = this.result[index];
       var book_title = book_info.params.title
       var book_image = book_info.params.mediumImageUrl
@@ -34,6 +35,10 @@ axios.defaults.headers.common = {
           image: book_image,
           tag_id: tag_id
         }
+      }).then(function(){
+        axios
+          .get('/books/' + self.state.user_info.id)
+          .then(response => (self.state.books = response.data))
       })
     }
   }

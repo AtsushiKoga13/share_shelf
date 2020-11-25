@@ -17,12 +17,12 @@ export default {
   },
   mounted: function() {
     this.$store.commit('get_user_info', "my_page")
-    this.$store.commit('get_followings')
-    this.$store.commit('get_users')
     this.$store.commit('get_posts')
     this.$store.commit('get_books_info', "my_page")
-    this.$store.commit('get_followers')
     this.$store.commit('get_impressions')
+    this.$store.commit('get_followers')
+    this.$store.commit('get_followings')
+    this.$store.commit('get_users')
   }
 }
 </script>

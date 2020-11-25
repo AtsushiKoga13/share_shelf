@@ -1,23 +1,36 @@
 <template>
   <div>
-    <p>Search</p>
-    <div class="search-box sumaho_mt65">
-      <form @submit.prevent="BookSearch" accept-charset="UTF-8">
-        <input name="utf8" type="hidden" value="✓">
-        <label for="keyword">検索</label>
-        <input v-model="keyword" type="text" name="keyword" id="keyword" placeholder="書籍・DVD・CD名等">
-        <input @click="isLoading=!isLoading" type="submit" class="fas submit_btn" value="find">
+    <p class="font-weight-black display-1">Search</p>
+    <p class="subtitle-1">登録する書籍を検索</p>
+    <div class="search-box">
+      <form class="d-flex" @submit.prevent="BookSearch" accept-charset="UTF-8">
+        <v-row>
+          <v-col>
+            <v-text-field outlined label="Keyword" v-model="keyword" type="text" name="keyword" id="keyword" placeholder="書籍・DVD・CD名等"></v-text-field>
+          </v-col>
+          <v-col>
+            <v-btn @click="isLoading=!isLoading" type="submit">検索</v-btn>
+          </v-col>
+        </v-row>
       </form>
     </div>
     <spinner v-show="isLoading"></spinner>
     <div>
-      <ul v-show="!isLoading" id="example-1">
-        <li v-for="(item, index) in result" :key="item.params.id">
-          <p>{{ item.params.title }}</p>
-          <img :src="item.params.mediumImageUrl" v-bind:alt="item.params.titleKana">
-          <BookSaveButton :index="index" :result="result" v-if="CheckShelf(item.params)"/>
-        </li>
-      </ul>
+      <v-row v-show="!isLoading">
+        <v-col class="pb-4" cols="12" xs="6" sm="6" md="4" v-for="(item, index) in result" :key="item.params.id">
+          <v-card elevation="2">
+            <p class="mb-0 pt-1 pl-1 subtitle-1">{{ item.params.title }}</p>
+            <v-row class="align-end">
+              <v-col xs="12" sm="6" md="6">
+                <img class="pb-3 pl-6" :src="item.params.mediumImageUrl" v-bind:alt="item.params.titleKana">
+              </v-col>
+              <v-col class="pl-0" xs="12" sm="6" md="6">
+                <BookSaveButton :index="index" :result="result" v-if="CheckShelf(item.params)"/>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+      </v-row>
     </div>
   </div>
 </template>
@@ -47,11 +60,7 @@ export default {
   computed: {
     CheckShelf () {
       return function(book) {
-        if (store.state.books.some((element) => element.title  == book.title)) {
-          return false
-        } else {
-          return true
-        }
+        return store.state.books.some((element) => element.title  == book.title) ? false : true
       }
     }
   },
@@ -59,20 +68,15 @@ export default {
     BookSearch: function () {
       let self = this
       axios
-      .get('/search', {
+      .get('/get_search', {
         params: {
           keyword: this.keyword
         }
       })
-      // .then(response => (this.result = response.data))
       .then(function(response) {
           self.result = response.data;
           self.isLoading = false})
     }
-  },
-  mounted: function() {
-    this.$store.commit('get_user_info', "my_page")
-    this.$store.commit('get_books_info',"my_page")
   }
 }
 </script>
