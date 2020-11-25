@@ -1,0 +1,72 @@
+.erb .title {
+  font-size:1.6em;
+  text-align:center;
+}
+
+.erb .container {
+  padding:10px 0px;
+  margin:0 auto;
+  width:50%;
+  background-color:rgb(200, 200, 200);
+  margin-top:80px;
+}
+
+.erb .box {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  width:60%;
+  margin:0 auto;
+}
+
+.erb p {
+  margin:0;
+}
+
+.erb label {
+  text-align: left;
+}
+
+.erb input {
+  margin-bottom:10px;
+}
+
+.erb .btn {
+  text-align: center;
+  width:150px;
+  margin:10px 0px;
+}
+
+.erb .image {
+  margin:10px 0px;
+}
+
+.erb .link {
+  text-decoration: none;
+  margin:15px 0px;
+}
+
+.erb .header {
+  position:absolute;
+  top:0;
+  left:0;
+  height:50px;
+  width:100%;
+  background-color: rgb(34, 34, 34);
+}
+
+.erb .header p {
+  padding-top:10px;
+  color:white;
+  text-align: center;
+}
+
+@media screen and (max-width: 550px) {
+  .erb .container {
+    width:90%;
+  }
+
+  .erb .box {
+    width:80%;
+  }
+}

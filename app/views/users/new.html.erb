@@ -1,21 +1,26 @@
-<h1>Sign up</h1>
-
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_with(model: @user, local: true) do |f| %>
+<div class="erb">
+  <%= render 'shared/header' %>
+  <div class="container">
+  <h1 class="title">Sign up</h1>
+  <%= form_with(model: @user, local: true) do |f| %>
+    <div class="box">
       <%= render 'shared/error_messages' %>
-      <%= f.label :name %>
+      <p>Name</p>
       <%= f.text_field :name %>
-      <%= f.label :email %>
+      <p>Email</p>
       <%= f.email_field :email %>
-      <%= f.label :password %>
+      <p>Password</p>
       <%= f.password_field :password %>
-      <%= f.label :password_confirmation, "Confirmation" %>
+      <p>Confirmation</p>
       <%= f.password_field :password_confirmation %>
       <span class="image">
         <%= f.file_field :avatar %>
       </span>
-      <%= f.submit "Create my account", class: "btn btn-primary" %>
-    <% end %>
+      <%= f.submit "Create my account", class: "btn" %>
+      <p><%= link_to "ログインはこちらから", login_path ,class: "link" %></p>
+    </div>
   </div>
+  <% end %>
 </div>
+
+<%= stylesheet_pack_tag 'layout' %>

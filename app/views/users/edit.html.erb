@@ -1,40 +1,37 @@
-<div class="container sumaho_mt65">
-  <h1>Update your profile picture</h1>
-  <div class="edit_container">
-    <%= form_with(model: @user, local: true) do |f| %>
-      <%= render 'shared/error_messages' %>
-      <div class="form_item">
-        <%= f.label :name %>
-        <%= f.text_field :name, class: 'text_form' %>
-      </div>
-      <div class="form_item">
-        <%= f.label :email %>
-        <%= f.email_field :email, class: 'text_form' %>
-      </div>
-      <div class="form_item">
-        <%= f.label :password %>
-        <%= f.password_field :password, class: 'text_form' %>
-      </div>
-      <div class="form_item">
-        <%= f.label :password_confirmation, "Confirmation" %>
-        <%= f.password_field :password_confirmation, class: 'text_form' %>
-      </div>
-      <div class="form_item">
-      <%= f.label :upload_file %>
-        <span class="image">
-          <%= f.file_field :avatar, accept: "image/jpeg,image/gif,image/png" %>
-        </span>
-      </div>
-      <p>
-        <% if @user.avatar %>
-        <img src="<%= @user.avatar %>" class="account-image" id="preview" style="max-width:200px; max-height:200px;">
-        <% end %>
-      </p>
-      <div class="form_item">
-      <%= f.submit "Save changes", class: "submit_btn", id: "submit_button" %>
-      </div>
-    <% end %>
+<div class="erb">
+  <%= render 'shared/header' %>
+  <div class="container">
+    <h1 class="title">Update your profile</h1>
+    <div class="edit_container">
+      <%= form_with(model: @user, local: true) do |f| %>
+        <%= render 'shared/error_messages' %>
+        <div class="box">
+          <div class="form_item">
+            <p>Name</p>
+            <%= f.text_field :name, class: 'text_form' %>
+          </div>
+          <div class="form_item">
+            <p>Email</p>
+            <%= f.email_field :email, class: 'text_form' %>
+          </div>
+          <div class="form_item">
+            <span class="image">
+              <%= f.file_field :avatar, accept: "image/jpeg,image/gif,image/png" %>
+            </span>
+          </div>
+          <p>
+            <% if @user.avatar %>
+            <img src="<%= @user.avatar %>" class="account-image" id="preview" style="max-width:200px; max-height:200px;">
+            <% end %>
+          </p>
+          <div class="form_item">
+          <%= f.submit "変更を保存する", class: "submit_btn", id: "submit_button" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 
 <%= javascript_pack_tag 'edit_page' %>
+<%= stylesheet_pack_tag 'layout' %>
