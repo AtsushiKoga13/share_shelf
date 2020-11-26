@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   resources :relationships, only: [:create, :destroy]
   resources :posts, only: [:index, :create, :destroy]
   resources :impressions, only: [:index, :create, :show, :update, :destroy]
+  get '*path', to: 'home#index'
 end

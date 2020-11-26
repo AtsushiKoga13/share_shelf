@@ -4,8 +4,8 @@
     <h1 class="title">Update your profile</h1>
     <div class="edit_container">
       <%= form_with(model: @user, local: true) do |f| %>
-        <%= render 'shared/error_messages' %>
         <div class="box">
+          <%= render 'shared/error_messages' %>
           <div class="form_item">
             <p>Name</p>
             <%= f.text_field :name, class: 'text_form' %>
@@ -13,6 +13,14 @@
           <div class="form_item">
             <p>Email</p>
             <%= f.email_field :email, class: 'text_form' %>
+          </div>
+          <div class="form_item">
+            <p>Password</p>
+            <%= f.password_field :password, class: 'text_form' %>
+          </div>
+          <div class="form_item">
+            <p>Confirmation</p>
+            <%= f.password_field :password_confirmation, class: 'text_form' %>
           </div>
           <div class="form_item">
             <span class="image">

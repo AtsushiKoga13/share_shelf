@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  # before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :correct_user,   only: [:edit, :update]
   protect_from_forgery
 
   def index
@@ -56,9 +57,14 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation,:image, :avatar)
   end
 
-  # def encode_base64(image_file)
-  #   image = Base64.encode64(image_file.download)
-  #   blob = ActiveStorage::Blob.find(image_file.blob_id)
-  #   "data:#{blob[:content_type]};base64,#{image}"
-  # end
+  def logged_in_user
+    unless logged_in?
+      redirect_to login_url
+    end
+  end
+
+  def correct_user
+    @user = User.find(session[:user_id])
+    redirect_to(root_url) unless current_user?(@user)
+  end
 end
