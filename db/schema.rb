@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_21_144950) do
+ActiveRecord::Schema.define(version: 2020_11_26_013644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,14 +78,6 @@ ActiveRecord::Schema.define(version: 2020_11_21_144950) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.bigint "book_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["book_id", "created_at"], name: "index_tags_on_book_id_and_created_at"
-    t.index ["book_id"], name: "index_tags_on_book_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -100,5 +92,4 @@ ActiveRecord::Schema.define(version: 2020_11_21_144950) do
   add_foreign_key "books", "users"
   add_foreign_key "impressions", "books"
   add_foreign_key "posts", "users"
-  add_foreign_key "tags", "books"
 end
