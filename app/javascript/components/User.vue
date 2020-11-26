@@ -5,7 +5,7 @@
     <spinner v-show="spiner_loading"></spinner>
     <div v-show="!spiner_loading">
       <v-row class="align-end">
-        <v-img contain max-height="100" max-width="100" v-bind:src="user_image"></v-img>
+        <img class="icon" v-bind:src="user_image">
         <div>
           <p class="ml-4">{{userinfo.name}}</p>
           <v-btn class="ml-4" small elevation="2" v-bind:href="'/users/' + userinfo.id + '/edit'">登録情報を変更する</v-btn>
@@ -87,3 +87,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.icon {
+  max-width:100px;
+  max-height:100px;
+}
+</style>

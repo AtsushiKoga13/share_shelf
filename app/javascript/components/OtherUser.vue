@@ -5,7 +5,7 @@
     <div v-show="!isLoading">
       <p class="subtitle-1">{{ user_info.name }}さんの本棚</p>
       <v-row class="pb-8 align-end">
-        <v-img contain max-height="100" max-width="100" v-bind:src="user_image"></v-img>
+        <img class="icon" v-bind:src="user_image">
         <div>
           <p class="ml-4">{{ user_info.name }}</p>
         </div>
@@ -112,3 +112,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.icon {
+  max-width:100px;
+  max-height:100px;
+}
+</style>

@@ -5,13 +5,16 @@ RSpec.describe 'Users signup', type: :system do
   let(:email) { "test@test.test" }
   let(:password) { "password" }
   let(:password_confirmation) { "password" }
+  let(:avatar) { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/factories/images/test_user_post_image.jpg')) }
 
   before do
     visit new_user_path
-    fill_in "Name", with: name
-    fill_in "Email", with: email
-    fill_in "Password", with: password
-    fill_in "Confirmation", with: password_confirmation
+    fill_in "user_name", with: name
+    fill_in "user_email", with: email
+    fill_in "user_password", with: password
+    fill_in "user_password_confirmation", with: password_confirmation
+    image_path = File.join(Rails.root, "spec/factories/images/test_user_post_image.jpg")
+    attach_file "user_avatar", image_path
     click_button "Create my account"
   end
 
@@ -26,7 +29,7 @@ RSpec.describe 'Users signup', type: :system do
 
     it "don't create user" do
       expect(User.count).to eq 0
-      expect(page).to have_content "error"
+      expect(page).to have_content "パスワードを入力してください"
     end
   end
 
@@ -35,20 +38,22 @@ RSpec.describe 'Users signup', type: :system do
 
     it "don't create user" do
       expect(User.count).to eq 0
-      expect(page).to have_content "error"
+      expect(page).to have_content "パスワード確認とパスワードの入力が一致しません"
     end
   end
 
   context "when email has already been taken" do
     it "don't create user" do
       visit new_user_path
-      fill_in "Name", with: name
-      fill_in "Email", with: email
-      fill_in "Password", with: password
-      fill_in "Confirmation", with: password_confirmation
+      fill_in "user_name", with: name
+      fill_in "user_email", with: email
+      fill_in "user_password", with: password
+      fill_in "user_password_confirmation", with: password_confirmation
+      image_path = File.join(Rails.root, "spec/factories/images/test_user_post_image.jpg")
+      attach_file "user_avatar", image_path
       click_button "Create my account"
       expect(User.count).to eq 1
-      expect(page).to have_content "error"
+      expect(page).to have_content "メールアドレスはすでに存在します"
     end
   end
 end

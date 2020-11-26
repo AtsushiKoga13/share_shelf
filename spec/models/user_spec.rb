@@ -4,12 +4,14 @@ RSpec.describe User, type: :model do
   let(:name) { "test_user" }
   let(:email) { "test@test.test" }
   let(:password) { "password" }
+  let(:avatar) { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/factories/images/test_user_post_image.jpg')) }
 
   subject { test_user = User.create(
             name: name,
             email: email,
             password: password,
-            password_confirmation: password
+            password_confirmation: password,
+            avatar: avatar
             ) }
 
   context "when value is appropriate" do
@@ -54,7 +56,8 @@ RSpec.describe User, type: :model do
         name: name,
         email: "test@test.test",
         password: password,
-        password_confirmation: password
+        password_confirmation: password,
+        avatar: avatar
         )
       is_expected.not_to be_valid
     end
@@ -66,10 +69,9 @@ RSpec.describe User, type: :model do
     it { is_expected.not_to be_valid }
   end
 
-  # 後で元に戻す
-  # context "when password is too short" do
-  #   let(:password) { "pass" }
+  context "when password is too short" do
+    let(:password) { "pass" }
 
-  #   it { is_expected.not_to be_valid }
-  # end
+    it { is_expected.not_to be_valid }
+  end
 end
