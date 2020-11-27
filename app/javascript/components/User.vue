@@ -24,7 +24,7 @@
       </div>
       <v-row class="brown lighten-5">
         <v-col align="center" cols="6" sm="3" md="2" v-for="book in books(change_tag_id)" :key="book.id">
-          <a @click.stop="dialog = true" @click="DisplayBook(book)"><img class="text-center" :src="book.image"></a>
+          <a @click.stop="dialog = true" @click="DisplayBook(book)"><img class="text-center" :id="'book' + book.id" :src="book.image"></a>
         </v-col>
       </v-row>
       <template>
