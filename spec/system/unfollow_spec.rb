@@ -38,36 +38,4 @@ RSpec.describe 'Unfollow', type: :system, js: true do
       expect(page).to have_selector("img[src$='test_image_1.jpg']")
     end
   end
-
-  # context "other_user follow user" do
-  #   it "can unfollow user" do
-  #     click_link 'Users'
-  #     expect(page).to have_content "Users"
-  #     expect(page).to have_content other_user.name
-  #     expect(page).to have_selector("img[src$='test_image_1.jpg']")
-  #     expect(user.following.count).to eq 1
-  #     click_button "Unfollow"
-  #     expect(user.following.count).to eq 0
-  #     sleep 10
-  #     click_button "Follow"
-  #     expect(user.following.count).to eq 1
-  #     click_link 'MyPage'
-  #     click_link 'user_followings'
-  #     expect(page).to have_content other_user.name
-  #     expect(page).to have_selector("img[src$='test_image_1.jpg']")
-  #   end
-  #   # it "can follow user" do
-  #   #   click_link 'Users'
-  #   #   expect(page).to have_content "Users"
-  #   #   expect(page).to have_content other_user.name
-  #   #   expect(page).to have_selector("img[src$='test_image_1.jpg']")
-  #   #   expect(Relationship.count).to eq 0
-  #   #   click_button "Follow"
-  #   #   expect(Relationship.count).to eq 1
-  #   #   click_link 'MyPage'
-  #   #   click_link 'user_followings'
-  #   #   expect(page).to have_content other_user.name
-  #   #   expect(page).to have_selector("img[src$='test_image_1.jpg']")
-  #   # end
-  # end
 end
