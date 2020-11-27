@@ -71,6 +71,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean_with(:truncation)
   end
 
   config.before(:each) do
@@ -81,9 +82,17 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  config.before(:all) do
-    DatabaseCleaner.start
-  end
+  # config.before(:each) do
+  #   DatabaseCleaner.start
+  # end
+
+  # config.after(:each) do
+  #   DatabaseCleaner.clean
+  # end
+
+  # config.before(:all) do
+  #   DatabaseCleaner.start
+  # end
 
   config.after(:all) do
     if Rails.env.test?

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Users show page', type: :system, js: true do
-  let!(:user) { create(:user, :a) }
+  let!(:user) { create(:user) }
 
   before do
     visit login_path

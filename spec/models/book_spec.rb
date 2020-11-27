@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Book, type: :model do
-  let(:user) { create(:user, :a) }
+  let(:user) { create(:user) }
 
   it "is valid with title" do
     book = user.books.build( title: "test_title" )
