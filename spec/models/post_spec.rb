@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :a) }
   let(:post) { user.posts.build(content: "Lorem ipsum", user_id: user.id) }
 
   context "when value is valid" do

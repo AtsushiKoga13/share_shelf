@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Users edit', type: :system, js: true do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :a) }
   let(:edit_name) { "edit_name" }
   let(:edit_email) { "edit_email@e.e" }
 

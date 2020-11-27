@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Books search', type: :system, js: true do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :a) }
 
   before do
     visit login_path

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Users login', type: :system, js: true do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :a) }
 
   context "when value is valid" do
     it "can login" do
