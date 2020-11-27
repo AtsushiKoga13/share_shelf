@@ -82,17 +82,17 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  # config.before(:each) do
-  #   DatabaseCleaner.start
-  # end
+  config.before(:suite) do
+    DatabaseCleaner.start
+  end
 
-  # config.after(:each) do
-  #   DatabaseCleaner.clean
-  # end
+  config.after(:suite) do
+    DatabaseCleaner.clean
+  end
 
-  # config.before(:all) do
-  #   DatabaseCleaner.start
-  # end
+  config.before(:all) do
+    DatabaseCleaner.start
+  end
 
   config.after(:all) do
     if Rails.env.test?
