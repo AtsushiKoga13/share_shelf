@@ -14,8 +14,8 @@ export default new VueRouter({
   mode: 'history',
   routes: [
     {
-      path: '/',
-      name: 'home',
+      path: '/post',
+      name: 'Post',
       component: Home
     },
     {

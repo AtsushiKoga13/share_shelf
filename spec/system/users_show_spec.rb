@@ -13,7 +13,6 @@ RSpec.describe 'Users show page', type: :system, js: true do
   end
 
   it "can change book tag" do
-    click_link 'MyPage'
     expect(page).to have_content "test_user"
     expect(page).to have_selector("img[src$='test_user_post_image.jpg']")
     expect(page).to have_selector("img[src$='#{image_url}']")
@@ -28,7 +27,6 @@ RSpec.describe 'Users show page', type: :system, js: true do
   end
 
   it "can add and edit impression" do
-    click_link 'MyPage'
     expect(page).to have_content "test_user"
     expect(page).to have_selector("img[src$='test_user_post_image.jpg']")
     expect(page).to have_selector("img[src$='#{image_url}']")

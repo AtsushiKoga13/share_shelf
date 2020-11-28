@@ -40,6 +40,7 @@ RSpec.describe 'Users show page', type: :system, js: true do
     fill_in "session_email", with: other_user.email
     fill_in "session_password", with: other_user.password
     click_button "Log in"
+    click_link 'Post'
     expect(page).to have_selector("img[src$='test_user_post_image.jpg']")
     expect(page).to have_content "test_userさんが「テストタイトル」を本棚に登録しました。"
   end
@@ -55,6 +56,7 @@ RSpec.describe 'Users show page', type: :system, js: true do
     fill_in "session_email", with: other_user.email
     fill_in "session_password", with: other_user.password
     click_button "Log in"
+    click_link 'Post'
     expect(page).to have_selector("img[src$='test_user_post_image.jpg']")
     expect(page).to have_content "test_userさんにフォローされました。"
   end

@@ -5,8 +5,8 @@
         <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
         <v-toolbar-title>Share Shelf</v-toolbar-title>
         <v-tabs right>
-          <v-tab to="/" class="header_link" >Home</v-tab>
           <v-tab to="/user/my_page" class="header_link" >MyPage</v-tab>
+          <v-tab to="/post" class="header_link" >Post</v-tab>
           <v-tab to="/search" class="header_link" >Search</v-tab>
           <v-tab to="/users_page" class="header_link" >Users</v-tab>
           <v-tab rel="nofollow" data-method="delete" to="/logout" class="header_link">Log out</v-tab>
@@ -16,10 +16,10 @@
         <v-list nav dense>
           <v-list-item-group>
             <v-list-item>
-              <v-list-item-title><router-link to="/" class="header_link_sumaho">Home</router-link></v-list-item-title>
+              <v-list-item-title><router-link to="/user/my_page" class="header_link_sumaho">MyPage</router-link></v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <v-list-item-title><router-link to="/user/my_page" class="header_link_sumaho">MyPage</router-link></v-list-item-title>
+              <v-list-item-title><router-link to="/post" class="header_link_sumaho">Post</router-link></v-list-item-title>
             </v-list-item>
             <v-list-item>
               <v-list-item-title><router-link to="/search" class="header_link_sumaho">Search</router-link></v-list-item-title>
