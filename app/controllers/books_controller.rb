@@ -8,9 +8,8 @@ class BooksController < ApplicationController
   end
 
   def create
-    user = User.find(session[:user_id])
-    user.books.create(book_params)
-    user.create_book_post(user,params[:book][:title],params[:book][:image])
+    current_user.books.create(book_params)
+    current_user.create_book_post(current_user,params[:book][:title],params[:book][:image])
   end
 
   def destroy
@@ -19,8 +18,7 @@ class BooksController < ApplicationController
   end
 
   def change_tag
-    user = User.find(session[:user_id])
-    user.books.find(params[:id]).update(book_params)
+    current_user.books.find(params[:id]).update(book_params)
   end
 
   private

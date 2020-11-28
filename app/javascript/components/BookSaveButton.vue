@@ -25,14 +25,11 @@ axios.defaults.headers.common = {
   methods: {
     sendindex(index,tag_id) {
       var self = this.$store
-      var book_info = this.result[index];
-      var book_title = book_info.params.title
-      var book_image = book_info.params.mediumImageUrl
       axios
       .post('/books', {
         book: {
-          title: book_title,
-          image: book_image,
+          title: this.result[index].params.title,
+          image: this.result[index].params.mediumImageUrl,
           tag_id: tag_id
         }
       }).then(function(){

@@ -40,14 +40,12 @@ class UsersController < ApplicationController
   end
 
   def following
-    user = User.find(session[:user_id])
-    users = user.following
+    users = current_user.following
     render json: users
   end
 
   def followers
-    user = User.find(session[:user_id])
-    users = user.followers
+    users = current_user.followers
     render json: users
   end
 
