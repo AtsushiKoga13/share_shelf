@@ -1,3 +1,7 @@
+const url = document.getElementById("preview").getAttribute("src");
+const https_url = url.replace( /http:/g , "https:" );
+document.getElementById("preview").setAttribute("src",https_url);
+
 window.addEventListener('popstate', function(e) {
   location.href="/user/my_page";
 });
