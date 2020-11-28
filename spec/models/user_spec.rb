@@ -1,18 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  subject do
+    test_user = User.create(
+      name: name,
+      email: email,
+      password: password,
+      password_confirmation: password,
+      avatar: avatar
+    )
+  end
+
   let(:name) { "test_user" }
   let(:email) { "test@test.test" }
   let(:password) { "password" }
   let(:avatar) { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/factories/images/test_user_post_image.jpg')) }
-
-  subject { test_user = User.create(
-            name: name,
-            email: email,
-            password: password,
-            password_confirmation: password,
-            avatar: avatar
-            ) }
 
   context "when value is appropriate" do
     it { is_expected.to be_valid }
@@ -58,7 +60,7 @@ RSpec.describe User, type: :model do
         password: password,
         password_confirmation: password,
         avatar: avatar
-        )
+      )
       is_expected.not_to be_valid
     end
   end

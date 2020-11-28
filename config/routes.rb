@@ -4,14 +4,14 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
-  get '/users_page/:id',  to: 'home#index'
-  get '/users_page',  to: 'home#index'
-  get '/user/my_page',  to: 'home#index'
-  post '/books/change_tag/:id',  to: 'books#change_tag'
+  get '/users_page/:id', to: 'home#index'
+  get '/users_page', to: 'home#index'
+  get '/user/my_page', to: 'home#index'
+  post '/books/change_tag/:id', to: 'books#change_tag'
   get '/get_search', to: "api/rakuten#search"
   get '/following',  to: 'home#index'
-  get '/follower',  to: 'home#index'
-  get '/search',  to: 'home#index'
+  get '/follower', to: 'home#index'
+  get '/search', to: 'home#index'
   resources :users do
     member do
       get :following, :followers

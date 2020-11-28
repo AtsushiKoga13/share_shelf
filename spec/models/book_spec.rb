@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Book, type: :model do
   let(:user) { create(:user) }
-  let(:book) { user.books.build( title: "test_title" ) }
+  let(:book) { user.books.build(title: "test_title") }
 
   it "is valid with title" do
     expect(book).to be_valid
@@ -19,12 +19,12 @@ RSpec.describe Book, type: :model do
   end
 
   it "order should be most recent first" do
-    second_book = user.books.create( title: "second_title" )
+    second_book = user.books.create(title: "second_title")
     expect(user.books.first).to eq second_book
   end
 
   it "associated books should be destroyed" do
     book.save
-    expect{ user.destroy }.to change{ Book.count }.from(1).to(0)
+    expect { user.destroy }.to change(Book, :count).from(1).to(0)
   end
 end

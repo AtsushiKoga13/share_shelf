@@ -13,7 +13,7 @@ RSpec.describe 'Users show page', type: :system, js: true do
   end
 
   it "book post is displayed" do
-    rakuten_api_webmock()
+    rakuten_api_webmock
     click_link 'Search'
     fill_in 'keyword', with: 'テストタイトル'
     click_on "検索"

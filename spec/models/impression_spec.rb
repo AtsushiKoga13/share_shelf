@@ -6,7 +6,7 @@ RSpec.describe User, type: :model do
   let(:impression) { user.books.first.build_impression(content: "Lorem ipsum") }
 
   before do
-    user.books.create(title:"テストタイトル",image: image_url,tag_id:1)
+    user.books.create(title: "テストタイトル", image: image_url, tag_id: 1)
   end
 
   context "when value is valid" do
@@ -14,7 +14,7 @@ RSpec.describe User, type: :model do
       expect(impression).to be_valid
     end
   end
-  
+
   context "when book_id is nil" do
     it "is invalid" do
       impression.book_id = ""
@@ -32,7 +32,7 @@ RSpec.describe User, type: :model do
   context "when book is destroyed" do
     it "impression is destroyed" do
       impression.save
-      expect{ user.books.first.destroy }.to change{ Impression.count }.by(-1)
+      expect { user.books.first.destroy }.to change(Impression, :count).by(-1)
     end
   end
 end

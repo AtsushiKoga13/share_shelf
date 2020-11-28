@@ -11,7 +11,7 @@ RSpec.describe 'Books search', type: :system, js: true do
   end
 
   it "can save book info" do
-    rakuten_api_webmock()
+    rakuten_api_webmock
     click_link 'Search'
     expect(page).to have_content "Search"
     fill_in 'keyword', with: 'テストタイトル'
@@ -20,7 +20,7 @@ RSpec.describe 'Books search', type: :system, js: true do
     expect(page).to have_selector("img[src$='test_user_post_image.jpg']")
     expect(page).to have_selector("img[alt$='テストタイトル']")
     expect(user.books.count).to eq 0
-    expect{ click_on '読み終わり本棚へ保存' }.to change{ user.books.count }.from(0).to(1)
+    expect { click_on '読み終わり本棚へ保存' }.to change { user.books.count }.from(0).to(1)
     click_link 'MyPage'
     expect(page).to have_selector("img[src$='test_user_post_image.jpg']")
   end

@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy, :change_tag]
-  before_action :correct_user,   only: [:create ,:destroy, :change_tag]
+  before_action :correct_user,   only: [:create, :destroy, :change_tag]
 
   def show
     params[:id] = session[:user_id] if params[:id] == "my_page"
@@ -9,7 +9,7 @@ class BooksController < ApplicationController
 
   def create
     current_user.books.create(book_params)
-    current_user.create_book_post(current_user,params[:book][:title],params[:book][:image])
+    current_user.create_book_post(current_user, params[:book][:title], params[:book][:image])
   end
 
   def destroy

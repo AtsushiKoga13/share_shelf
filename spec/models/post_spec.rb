@@ -9,7 +9,7 @@ RSpec.describe User, type: :model do
       expect(post).to be_valid
     end
   end
-  
+
   context "when user_id is nil" do
     it "is invalid" do
       post.user_id = ""
@@ -20,7 +20,7 @@ RSpec.describe User, type: :model do
   context "when user is destroyed" do
     it "post is destroyed" do
       post.save
-      expect{ user.destroy }.to change{ Post.count }.by(-1)
+      expect { user.destroy }.to change(Post, :count).by(-1)
     end
   end
 end

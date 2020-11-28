@@ -7,7 +7,7 @@ class PostsController < ApplicationController
     posts = Post.where("user_id IN (#{following_ids})
                         AND post_type = 2 OR
                         user_id = :user_id AND post_type = 1",
-                        user_id: current_user.id).limit(10)
+                       user_id: current_user.id).limit(10)
     render json: posts
   end
 end

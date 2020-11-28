@@ -7,7 +7,7 @@ class ImpressionsController < ApplicationController
     impressions = Impression.where("book_id IN (#{book_ids})")
     render json: impressions
   end
-  
+
   def show
     book_ids = "SELECT id FROM books WHERE user_id = #{params[:id]}"
     impressions = Impression.where("book_id IN (#{book_ids})")
