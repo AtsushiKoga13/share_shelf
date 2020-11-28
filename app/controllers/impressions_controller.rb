@@ -1,4 +1,7 @@
 class ImpressionsController < ApplicationController
+  before_action :logged_in_user, only: [:create, :update, :destroy]
+  before_action :correct_user,   only: [:create, :update, :destroy]
+
   def index
     book_ids = "SELECT id FROM books WHERE user_id = #{session[:user_id]}"
     impressions = Impression.where("book_id IN (#{book_ids})")

@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :logged_in_user, only: [:index]
+
   def index
     user = User.find(session[:user_id])
     following_ids = "SELECT followed_id FROM relationships
