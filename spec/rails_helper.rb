@@ -100,4 +100,6 @@ RSpec.configure do |config|
       FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads_test/*"])
     end
   end
+
+  config.include RakutenApiWebmock
 end

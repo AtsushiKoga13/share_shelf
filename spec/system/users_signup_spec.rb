@@ -27,7 +27,7 @@ RSpec.describe 'Users signup', type: :system do
   context "when password is blank" do
     let!(:password) { "" }
 
-    it "don't create user" do
+    it "doesn't create user" do
       expect(User.count).to eq 0
       expect(page).to have_content "パスワードを入力してください"
     end
@@ -36,14 +36,14 @@ RSpec.describe 'Users signup', type: :system do
   context "when confirmation password is not match" do
     let!(:password_confirmation) { "foobar" }
 
-    it "don't create user" do
+    it "doesn't create user" do
       expect(User.count).to eq 0
       expect(page).to have_content "パスワード確認とパスワードの入力が一致しません"
     end
   end
 
   context "when email has already been taken" do
-    it "don't create user" do
+    it "doesn't create user" do
       visit new_user_path
       fill_in "user_name", with: name
       fill_in "user_email", with: email
