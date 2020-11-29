@@ -4,12 +4,12 @@ RSpec.describe Relationship, type: :model do
   let(:user) { create(:user) }
   let(:other_user) { create(:other_user) }
 
-  it "is valid" do
+  it "active relationship is valid" do
     relationship = user.active_relationships.build(followed_id: other_user.id)
     expect(relationship).to be_valid
   end
 
-  it "is valid" do
+  it "passive relationship is valid" do
     relationship = user.passive_relationships.build(follower_id: other_user.id)
     expect(relationship).to be_valid
   end

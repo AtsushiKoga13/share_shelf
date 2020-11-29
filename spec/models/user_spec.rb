@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   subject do
-    test_user = User.create(
+    User.create(
       name: name,
       email: email,
       password: password,
@@ -54,7 +54,7 @@ RSpec.describe User, type: :model do
     let(:email) { "TEST@TEST.TEST" }
 
     it "can not create" do
-      other_user = User.create(
+      User.create(
         name: name,
         email: "test@test.test",
         password: password,

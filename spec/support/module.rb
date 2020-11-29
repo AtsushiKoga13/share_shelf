@@ -8,7 +8,7 @@ module RakutenApiWebmock
       },
     ] })
     WebMock.enable!
-    WebMock.stub_request(:get, "https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?affiliateId&applicationId=1023224650998658370&formatVersion=2&title=%E3%83%86%E3%82%B9%E3%83%88%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB").
+    WebMock.stub_request(:get, ENV["RAKUTEN_MOCK_URL"]).
       with(
         headers: {
           'Accept' => '*/*',

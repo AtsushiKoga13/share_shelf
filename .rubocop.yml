@@ -1,6 +1,12 @@
 inherit_from:
   - .rubocop_airbnb.yml
 
+Rails:
+  Enabled: true
+
+LineLength:
+  Max: 130
+
 AllCops:
   Exclude:
     - 'db/**/*'
@@ -12,3 +18,17 @@ AllCops:
     - 'lib/tasks/*'
     - 'vendor/**/*'
     - 'path/ruby'
+    - 'node_modules/**/*'
+    - '.env'
+
+AsciiComments:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Airbnb/DefaultScope:
+  Enabled: false
+
+Airbnb/RiskyActiverecordInvocation:
+  Enabled: false
