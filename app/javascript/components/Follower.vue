@@ -10,7 +10,7 @@
       <v-col class="pb-4" xs="6" sm="4" md="3" v-for="follower in followers" :key="follower.id">
         <p class="title"><router-link class="text-decoration-none" :to="'/users_page/' + follower.id">{{ follower.name }}</router-link></p>
         <router-link class="text-center" :to="'/users_page/' + follower.id">
-          <img :src="follower.avatar.url" v-bind:alt="follower.avatar.url">
+          <img :src="user_image(follower)" v-bind:alt="user_image(follower)">
         </router-link>
       </v-col>
     </v-row>
@@ -32,7 +32,13 @@ export default {
     },
     followers () {
       return this.$store.state.followers
-    }
+    },
+    user_image() {
+      return function(user) {
+        var url = user.avatar.url
+        return url.replace( /http:/g , "https:" );
+      }
+    },
   },
   methods: {
     back() {

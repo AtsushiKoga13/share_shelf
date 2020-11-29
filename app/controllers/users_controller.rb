@@ -28,6 +28,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(session[:user_id])
+    @url = @user.avatar.url.gsub(/http:/, 'https:')  
   end
 
   def update
