@@ -22,7 +22,7 @@ axios.defaults.headers.common = {
 };
 export default {
   props: {
-    user: ''
+    user: String
   },
   components: {
     Spinner

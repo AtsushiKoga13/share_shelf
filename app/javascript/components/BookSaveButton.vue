@@ -14,8 +14,8 @@ axios.defaults.headers.common = {
 };
  export default {
   props: {
-      index: '',
-      result: ''
+      index: String,
+      result: String
   },
   data(){
     return{

@@ -54,7 +54,7 @@ axios.defaults.headers.common = {
 
 export default {
   props: {
-    BookInfo: ''
+    BookInfo: String
   },
   components: {
     Spinner
