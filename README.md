@@ -1,24 +1,64 @@
-# README
+# ポートフォリオ　Share Shelf
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+デプロイ先URL<br>
+https://still-cliffs-77367.herokuapp.com<br>
 
-Things you may want to cover:
+Share Shelfは本棚共有アプリです。
+書籍の検索と登録だけでなく、ユーザーをフォローすることで、誰が何の本を読んだのかが分かるようにしました。
 
-* Ruby version
 
-* System dependencies
+# ログイン方法
 
-* Configuration
+テストユーザー1<br>
+email: test1@test.com<br>
+password: password<br>
 
-* Database creation
+上記をログイン画面に入力してログインすることで動作確認ができます。
 
-* Database initialization
 
-* How to run the test suite
+# このアプリの特徴
 
-* Services (job queues, cache servers, search engines, etc.)
+本棚アプリとして書籍を登録できるだけでなく、自動で作成される投稿機能によりフォロワーと読んだ本の共有ができるようにしました。
+フロントエンドにはVue.jsを採用し、SPA風のものにすることで、ページ遷移を減らしてスムーズな動きにしようと試みました。(ページの読み込みに時間がかかる場合があります。)
+書籍検索には楽天apiを活用しています。
 
-* Deployment instructions
 
-* ...
+# 使用した技術、開発の際に意識したこと
+
+* 現場での開発を想定してDocker環境で開発を進めるようにしました。
+* コードはなるべく冗長にせず、可読性を高くしようと試みました。
+* Vuex,Vue Router,axios等を使用し、SPA風のサイトを作ろうと試みました。
+
+データベース: PostgreSQL<br>
+外部ストレージ: Cloudinary<br>
+デザインフレームワーク: Vuetify<br>
+テスト: Rspec(apiのテストにはwebmockを使用)<br>
+lintツール: RuboCop, ESLint, Prettier<br>
+
+バージョン<br>
+![](https://img.shields.io/badge/Ruby-2.6.6-red.svg)
+![](https://img.shields.io/badge/Rails-6.0.3-red.svg)
+![](https://img.shields.io/badge/Vue-2.6.12-brightgreen.svg)
+
+
+# 各ページの説明
+
+* Sign up, ユーザー登録をするページです。名前、メールアドレス、パスワード、ユーザーイメージ画像は必須です。
+
+* Log in, メールアドレスとパスワードを入力してログインできます。
+
+* Mypage, ユーザーページです。登録した書籍と、フォロー、フォロワーの確認ができます。本棚の本をクリックすることで、モーダルが開き、本の感想を登録したり、別の本棚に移動させることができます。また、ユーザーの登録情報を変更することができるEditページへ移動できます。
+
+* Post, 投稿を確認できます。ユーザーがフォローされた時や、フォローしているユーザーが書籍を本棚
+に登録した際に投稿が自動的に作成されます。
+
+* Search, 書籍を検索できます。本棚に登録する本は、読み終わり、読みかけ、読みたい、本棚にそれぞれ登録できます。
+
+* Users, このアプリに登録されているユーザーが表示されます。フォローボタンでユーザーをフォローすることができます。
+
+* Log out, ログアウトします。
+
+
+# ER図
+
+![erd](https://user-images.githubusercontent.com/64263527/100711681-f9263680-33f4-11eb-95c0-8b44bea2b372.png)

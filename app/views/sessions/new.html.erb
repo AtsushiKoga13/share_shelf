@@ -1,6 +1,10 @@
 <div class="erb">
   <%= render 'shared/header' %>
-  <div class="container">
+  <div class="back">
+    <h1 class="main-title">Share Shelf</h1>
+    <p>共有できる本棚アプリ！</p>
+  </div>
+  <div class="container login">
     <h1 class="title">Log in</h1>
     <%= form_with(url: login_path, scope: :session, local: true) do |f| %>
       <div class="box">
@@ -12,7 +16,7 @@
       <p>Password</p>
       <%= f.password_field :password, class: 'form-control' %>
       <%= f.submit "Log in", class: "btn" %>
-      <p class="link"><%= link_to "サインアップはこちらから", signup_path, class: "link" %></p>
+      <p class="link"><%= link_to "ユーザー登録はこちらから", signup_path, class: "link" %></p>
       </div>
     <% end %>
   </div>

@@ -13,7 +13,7 @@
               type="text"
               name="keyword"
               id="keyword"
-              placeholder="書籍・DVD・CD名等"
+              placeholder="書籍名を入力してください。"
             ></v-text-field>
           </v-col>
           <v-col>
