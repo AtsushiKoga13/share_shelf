@@ -30,7 +30,7 @@ password: password<br>
 * Vuex,Vue Router,axios等を使用し、SPA風のサイトを作ろうと試みました。
 
 データベース: PostgreSQL<br>
-外部ストレージ: Cloudinary<br>
+ストレージ: Cloudinary<br>
 デザインフレームワーク: Vuetify<br>
 テスト: Rspec(apiのテストにはwebmockを使用)<br>
 lintツール: RuboCop, ESLint, Prettier<br>
