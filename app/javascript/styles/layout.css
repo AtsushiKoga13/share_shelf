@@ -1,6 +1,105 @@
+body {
+  padding:0;
+  margin:0;
+}
+
 .erb .back {
   padding:30px 0px;
   text-align: center;
+}
+
+.erb .top-header {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:40px;
+  display:flex;
+  z-index:10;
+  color:white;
+  justify-content: space-between;
+  font-size: 1.3em;
+  padding-top: 10px;
+}
+
+.erb .top-header-left {
+  display:flex;
+  padding-left: 20px;
+}
+
+.erb .top-header-right {
+  display:flex;
+  padding-right: 20px;
+}
+
+.top-header a, .top-header div {
+  color:white;
+  padding:0px 10px;
+}
+
+.erb .background {
+  width:100%;
+  height:620px;
+  background-size:contain;
+  background-image: url(../../assets/images/top_image.jpg);
+  position: relative;
+}
+
+.background::before{
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: ' ';
+}
+
+.erb .top_text {
+  color:#b3b3b3;
+  padding-top:150px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index:1;
+  text-align:center;
+}
+
+.erb .top-title {
+  font-size:4em;
+}
+
+.erb .top-subtitle {
+  font-size:1.6em;
+}
+
+.top .block {
+  padding:80px 0px;
+  background-color:#ececec;
+  margin:0 auto;
+  display:flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.top .top-block-text {
+  width:400px;
+  padding:10px 0px;
+  margin-right:100px;
+}
+
+.top h2 {
+  margin:0px 0px 10px 0px;
+  padding:0;
+}
+
+.top a {
+  text-decoration: none;
+}
+
+.top .top-block-image img {
+  max-width:300px;
 }
 
 .erb .main-title {
@@ -75,6 +174,16 @@
   text-align: center;
 }
 
+.erb .footer {
+  height:40px;
+}
+
+.erb .footer-text {
+  padding:10px 0px 0px 15px;
+  text-align: left;
+  color:rgb(185, 185, 185);
+}
+
 @media screen and (max-width: 550px) {
   .erb .container {
     width:90%;
@@ -82,5 +191,14 @@
 
   .erb .box {
     width:80%;
+  }
+
+  .top .block {
+    padding:40px;
+  }
+  
+  .top .top-block-text {
+    width:400px;
+    padding:10px;
   }
 }
