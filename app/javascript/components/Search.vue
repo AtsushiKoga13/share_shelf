@@ -43,6 +43,9 @@
                   :src="item.params.mediumImageUrl"
                   v-bind:alt="item.params.titleKana"
                 />
+                <p class="rakuten_url">
+                  <a v-bind:href="item.params.itemUrl" target="_blank" rel="noopener">楽天ページを開く</a>
+                </p>
               </v-col>
               <v-col class="pl-0" xs="12" sm="6" md="6">
                 <BookSaveButton

@@ -308,6 +308,15 @@ i {
   display: none !important;
 }
 
+.rakuten_url {
+  font-size: 0.8em;
+  padding-left: 20px;
+}
+
+.rakuten_url a {
+  text-decoration: none;
+}
+
 @media screen and (max-width: 550px) {
   .nosumaho {
     display: none !important;
