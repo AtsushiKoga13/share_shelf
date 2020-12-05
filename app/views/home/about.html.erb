@@ -1,1 +1,50 @@
-<%= render 'shared/header' %>
+<div class="erb top">
+  <div class="top-header nosumaho">
+    <div class="top-header-left">
+      <%= link_to "Top", top_path, class: "header-btn ml-10" %>
+      <div>About</div>
+    </div>
+    <div class="top-header-right">
+      <%= link_to "Log in", login_path, class: "header-btn mr-10" %>
+      <%= link_to "Sign up", signup_path, class: "header-btn" %>
+    </div>
+  </div>
+  <div class="top-header sumaho">
+    <%= link_to "Top", top_path, class: "sumaho-header-btn ml-10" %>
+    <%= link_to "Log in", login_path, class: "sumaho-header-btn ml-10" %>
+    <%= link_to "Sign up", signup_path, class: "sumaho-header-btn ml-10" %>
+  </div>
+  <div class="background-about">
+    <div class="top_text_about">
+      <h1 class="top-title">About</h1>
+    </div>
+  </div>
+  <div class="block">
+    <div class="block-about">
+      <h2>Share Shelfとは？</h2>
+      <p>読んだ本を共有できる本棚アプリです。</p>
+      <p>通常の書籍管理アプリのように使えるとともに交流のツールとしても使えます。</p>
+      <div class="block-flex">
+        <div class="flex-item">
+          <p class="flex-item-text">読んだ本や感想を登録し<br>読書記録を残す</p>
+          <i class="fas fa-book-open fa-5x"></i>
+          <p class="block-sentence">読んだ本の記録や、本の感想を追加して読書記録を残すことができます。マイページを見ればどんな本を読んだか一眼で分かります。</p>
+        </div>
+        <div class="flex-item">
+          <p class="flex-item-text">欲しい本は「読みたい本棚」へ<br>そのまま購入も</p>
+          <i class="fas fa-shopping-cart fa-5x"></i>
+          <p class="block-sentence">欲しい本があったら読みたい本棚に登録することでメモ代わりにすることができます。また、楽天の商品ページから購入することもできます。</p>
+        </div>
+        <div class="flex-item">
+          <p class="flex-item-text">誰が何の本を読んだか分かる<br>読書を通して交流を深める</p>
+          <i class="fas fa-user-friends fa-5x"></i>
+          <p class="block-sentence">フォローすることで、友達や家族が本を登録した際に投稿がされるようになります。本を話のきっかけにするなど、交流をより深めることができます。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="block pt-0">
+    <%= link_to "ユーザー登録はこちらから", signup_path, class: "about-signup-btn" %>
+  </div>
+  <%= render 'shared/footer' %>
+</div>

@@ -1,13 +1,18 @@
 <div class="erb top">
-  <div class="top-header">
+  <div class="top-header nosumaho">
     <div class="top-header-left">
       <div>Share Shelf</div>
-      <%= link_to "About", about_path %>
+      <%= link_to "About", about_path, class: "header-btn ml-10" %>
     </div>
     <div class="top-header-right">
-      <%= link_to "Log in", login_path %>
-      <%= link_to "Sign up", signup_path %>
+      <%= link_to "Log in", login_path, class: "header-btn mr-10" %>
+      <%= link_to "Sign up", signup_path, class: "header-btn" %>
     </div>
+  </div>
+  <div class="top-header sumaho">
+    <%= link_to "About", about_path, class: "sumaho-header-btn ml-10" %>
+    <%= link_to "Log in", login_path, class: "sumaho-header-btn ml-10" %>
+    <%= link_to "Sign up", signup_path, class: "sumaho-header-btn ml-10" %>
   </div>
   <div class="background">
     <div class="top_text">
@@ -20,7 +25,7 @@
       <h2>本から生まれるコミュニケーション</h2>
       <p>Share Shelfは本棚アプリのように使えるだけでなく、友達や家族が最近何の本を読んだのか、どんな本に興味があるのかが分かります。
       本好き同士の交流がより深まって欲しいという思いからこのサービスを作りました。</p>
-      <%= link_to "詳しくはこちらへ", about_path %>
+      <%= link_to "詳しくはこちらへ", about_path, class: "more" %>
     </div>
     <div class="image">
       <div class="top-block-image">
