@@ -28,7 +28,7 @@ password: password<br>
 * Vuex,Vue Router,axios等を使用し、SPA風のサイトを作ろうと試みました。
 
 データベース: PostgreSQL<br>
-外部ストレージ: Cloudinary<br>
+ストレージ: Cloudinary<br>
 デザインフレームワーク: Vuetify<br>
 テスト: Rspec(apiのテストにはwebmockを使用)<br>
 lintツール: RuboCop, ESLint, Prettier<br>
@@ -60,5 +60,9 @@ lintツール: RuboCop, ESLint, Prettier<br>
 
 # ER図
 
+<<<<<<< HEAD
 ![erd](https://user-images.githubusercontent.com/47806014/101282352-0d649c00-3818-11eb-9b07-3838b0212d1d.png)
 
+=======
+![erd](https://user-images.githubusercontent.com/64263527/100711681-f9263680-33f4-11eb-95c0-8b44bea2b372.png)
+>>>>>>> 1af21a1d28a3a75c2826cdab2873a7b7c961e42f
