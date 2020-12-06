@@ -63,6 +63,7 @@ export default {
             title: this.result[index].params.title,
             image: this.result[index].params.mediumImageUrl,
             tag_id: tag_id,
+            rakuten_url: this.result[index].params.itemUrl
           },
         })
         .then(function () {

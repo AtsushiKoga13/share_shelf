@@ -4,7 +4,10 @@
     <v-row>
       <v-col class="text-center" cols="12" xs="12" md="3"
         ><img :src="BookInfo.image"
-      /></v-col>
+      /><p class="rakuten_url">
+          <a v-bind:href="BookInfo.rakuten_url" target="_blank" rel="noopener">楽天ページを開く</a>
+        </p>
+      </v-col>
       <v-col cols="12" xs="12" md="9">
         <spinner v-show="show"></spinner>
         <div v-show="!show">
