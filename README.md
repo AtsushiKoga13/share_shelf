@@ -1,6 +1,6 @@
 # ポートフォリオ　Share Shelf
 
-デプロイ先URL
+デプロイ先URL<br>
 https://still-cliffs-77367.herokuapp.com<br>
 
 Share Shelfは本棚共有アプリです。
@@ -9,8 +9,8 @@ Share Shelfは本棚共有アプリです。
 
 # ログイン方法
 
-テストユーザー1
-email: test1@test.com
+テストユーザー1<br>
+email: test1@test.com<br>
 password: password<br>
 
 上記をログイン画面に入力してログインすることで動作確認ができます。
@@ -33,7 +33,7 @@ password: password<br>
 テスト: Rspec(apiのテストにはwebmockを使用)<br>
 lintツール: RuboCop, ESLint, Prettier<br>
 
-バージョン
+バージョン<br>
 ![](https://img.shields.io/badge/Ruby-2.6.6-red.svg)
 ![](https://img.shields.io/badge/Rails-6.0.3-red.svg)
 ![](https://img.shields.io/badge/Vue-2.6.12-brightgreen.svg)
