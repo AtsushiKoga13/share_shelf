@@ -1,7 +1,7 @@
 # ポートフォリオ　Share Shelf
 
 デプロイ先URL<br>
-https://still-cliffs-77367.herokuapp.com<br>
+https://still-cliffs-77367.herokuapp.com/top<br>
 
 Share Shelfは本棚共有アプリです。
 書籍の検索と登録だけでなく、ユーザーをフォローすることで、誰が何の本を読んだのかが分かるようにしました。
